@@ -1,0 +1,1 @@
+./profiler.sh -e cache-misses  -d 30 -i 1ms -o traces -f entry4MB-seg128mb-no-change.txt
