@@ -1,0 +1,6 @@
+Execution time: ~31 sec
+
+
+07:18:26.009 [] WARN  io.zeebe.logstreams - Create log stream with maxEntrySize 4194304 maxSegmentSize 134217728
+
+07:18:57.009 [] WARN  io.zeebe.broker.logstreams - {from:"START_EVENT:ELEMENT_ACTIVATING", to:"START_EVENT:ELEMENT_ACTIVATED", avg:0.7, rmssd:0.7, min:0.2, max:42.8, count:10000}, histogram: {0.25=1, 0.5=705, 0.75=7623, 1.0=1235, 2.5=428, 5.0=1, 7.0=1, 10.0=1, 25.0=1, 50.0=4, 75.0=0, 100.0=0, 1.7976931348623157E308=0}
