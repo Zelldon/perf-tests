@@ -1,0 +1,2582 @@
+
+
+13:55:07.538 [] WARN  io.zeebe.broker.logstreams - {from:"START_EVENT:ELEMENT_ACTIVATING", to:"START_EVENT:ELEMENT_ACTIVATED", avg:20.1, rmssd:2.4, min:3.3, max:87.7, count:3200}, histogram: {0.25=0, 0.5=0, 0.75=0, 1.0=0, 2.5=0, 5.0=1, 7.0=24, 10.0=158, 25.0=2687, 50.0=326, 75.0=3, 100.0=1, 1.7976931348623157E308=0}
+
+latency increases over time
+
+--- Execution profile ---
+Total samples       : 92
+
+Frame buffer usage  : 0.2409%
+
+--- 3000515 misses (3.26%), 3 samples
+  [ 0] copy_user_enhanced_fast_string_[k]
+  [ 1] copyout_[k]
+  [ 2] copy_page_to_iter_[k]
+  [ 3] generic_file_read_iter_[k]
+  [ 4] new_sync_read_[k]
+  [ 5] vfs_read_[k]
+  [ 6] ksys_read_[k]
+  [ 7] do_syscall_64_[k]
+  [ 8] entry_SYSCALL_64_after_hwframe_[k]
+  [ 9] __GI___read
+  [10] sun.nio.ch.FileDispatcherImpl.read0
+  [11] sun.nio.ch.FileDispatcherImpl.read
+  [12] sun.nio.ch.IOUtil.readIntoNativeBuffer
+  [13] sun.nio.ch.IOUtil.read
+  [14] sun.nio.ch.FileChannelImpl.read
+  [15] io.atomix.storage.journal.FileChannelJournalSegmentReader.readNext
+  [16] io.atomix.storage.journal.FileChannelJournalSegmentReader.hasNext
+  [17] io.atomix.storage.journal.MappableJournalSegmentReader.hasNext
+  [18] io.atomix.storage.journal.SegmentedJournalReader.hasNextEntry
+  [19] io.atomix.storage.journal.SegmentedJournalReader.hasNext
+  [20] io.atomix.storage.journal.DelegatingJournalReader.hasNext
+  [21] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.findEntry
+  [22] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.read
+  [23] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.lambda$readBlockIntoBuffer$1
+  [24] io.zeebe.logstreams.impl.log.LogStreamReaderImpl$$Lambda$383.1923772135.applyAsLong
+  [25] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.executeReadMethod
+  [26] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readBlockIntoBuffer
+  [27] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextAddress
+  [28] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextEvent
+  [29] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [30] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [31] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [32] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [33] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [34] io.zeebe.util.sched.ActorJob.invoke
+  [35] io.zeebe.util.sched.ActorJob.execute
+  [36] io.zeebe.util.sched.ActorTask.execute
+  [37] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [38] io.zeebe.util.sched.ActorThread.doWork
+  [39] io.zeebe.util.sched.ActorThread.run
+
+--- 3000071 misses (3.26%), 3 samples
+  [ 0] java.util.concurrent.ConcurrentSkipListMap.doPut
+  [ 1] java.util.concurrent.ConcurrentSkipListMap.put
+  [ 2] io.zeebe.logstreams.storage.atomix.ZeebeIndexAdapter.index
+  [ 3] io.atomix.storage.journal.FileChannelJournalSegmentWriter.append
+  [ 4] io.atomix.storage.journal.MappableJournalSegmentWriter.append
+  [ 5] io.atomix.storage.journal.SegmentedJournalWriter.append
+  [ 6] io.atomix.storage.journal.DelegatingJournalWriter.append
+  [ 7] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [ 8] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [ 9] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [10] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [11] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [12] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [13] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [14] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [15] org.mockito.Answers.answer
+  [16] org.mockito.internal.handler.MockHandlerImpl.handle
+  [17] org.mockito.internal.handler.NullResultGuardian.handle
+  [18] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [19] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [20] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [21] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [22] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [23] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [24] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [25] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [26] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [27] io.zeebe.util.sched.ActorJob.invoke
+  [28] io.zeebe.util.sched.ActorJob.execute
+  [29] io.zeebe.util.sched.ActorTask.execute
+  [30] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [31] io.zeebe.util.sched.ActorThread.doWork
+  [32] io.zeebe.util.sched.ActorThread.run
+
+--- 2999829 misses (3.26%), 3 samples
+  [ 0] jlong_disjoint_arraycopy
+  [ 1] sun.nio.ch.NativeThreadSet.add
+  [ 2] sun.nio.ch.FileChannelImpl.position
+  [ 3] io.atomix.storage.journal.FileChannelJournalSegmentReader.readNext
+  [ 4] io.atomix.storage.journal.FileChannelJournalSegmentReader.hasNext
+  [ 5] io.atomix.storage.journal.MappableJournalSegmentReader.hasNext
+  [ 6] io.atomix.storage.journal.SegmentedJournalReader.hasNextEntry
+  [ 7] io.atomix.storage.journal.SegmentedJournalReader.hasNext
+  [ 8] io.atomix.storage.journal.DelegatingJournalReader.hasNext
+  [ 9] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.findEntry
+  [10] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.read
+  [11] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.lambda$readBlockIntoBuffer$1
+  [12] io.zeebe.logstreams.impl.log.LogStreamReaderImpl$$Lambda$383.1923772135.applyAsLong
+  [13] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.executeReadMethod
+  [14] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readBlockIntoBuffer
+  [15] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextAddress
+  [16] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextEvent
+  [17] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [18] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [20] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [21] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [22] io.zeebe.util.sched.ActorJob.invoke
+  [23] io.zeebe.util.sched.ActorJob.execute
+  [24] io.zeebe.util.sched.ActorTask.execute
+  [25] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [26] io.zeebe.util.sched.ActorThread.doWork
+  [27] io.zeebe.util.sched.ActorThread.run
+
+--- 2000014 misses (2.17%), 2 samples
+  [ 0] __memcmp_avx2_movbe
+  [ 1] rocksdb::MemTable::KeyComparator::operator()(char const*, rocksdb::Slice const&) const
+  [ 2] rocksdb::InlineSkipList<rocksdb::MemTableRep::KeyComparator const&>::FindGreaterOrEqual(char const*) const
+  [ 3] /tmp/librocksdbjni7175380705719042935.so
+  [ 4] rocksdb::MemTable::Get(rocksdb::LookupKey const&, std::string*, rocksdb::Status*, rocksdb::MergeContext*, unsigned long*, unsigned long*, rocksdb::ReadOptions const&, rocksdb::ReadCallback*, bool*, bool)
+  [ 5] rocksdb::DBImpl::GetLatestSequenceForKey(rocksdb::SuperVersion*, rocksdb::Slice const&, bool, unsigned long, unsigned long*, bool*, bool*)
+  [ 6] rocksdb::TransactionUtil::CheckKey(rocksdb::DBImpl*, rocksdb::SuperVersion*, unsigned long, unsigned long, std::string const&, bool, rocksdb::ReadCallback*, unsigned long)
+  [ 7] rocksdb::TransactionUtil::CheckKeysForConflicts(rocksdb::DBImpl*, std::unordered_map<unsigned int, std::unordered_map<std::string, rocksdb::TransactionKeyMapInfo, std::hash<std::string>, std::equal_to<std::string>, std::allocator<std::pair<std::string const, rocksdb::TransactionKeyMapInfo> > >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::unordered_map<std::string, rocksdb::TransactionKeyMapInfo, std::hash<std::string>, std::equal_to<std::string>, std::allocator<std::pair<std::string const, rocksdb::TransactionKeyMapInfo> > > > > > const&, bool)
+  [ 8] rocksdb::OptimisticTransaction::CheckTransactionForConflicts(rocksdb::DB*)
+  [ 9] rocksdb::OptimisticTransactionCallback::Callback(rocksdb::DB*)
+  [10] rocksdb::DBImpl::WriteImpl(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*, unsigned long*, unsigned long, bool, unsigned long*, unsigned long, rocksdb::PreReleaseCallback*)
+  [11] rocksdb::DBImpl::WriteWithCallback(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*)
+  [12] rocksdb::OptimisticTransaction::Commit()
+  [13] Java_org_rocksdb_Transaction_commit
+  [14] org.rocksdb.Transaction.commit
+  [15] org.rocksdb.Transaction.commit
+  [16] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commitInternal
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commit
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.lambda$updateState$9
+  [19] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$444.978940892.run
+  [20] io.zeebe.util.retry.ActorRetryMechanism.run
+  [21] io.zeebe.util.retry.RecoverableRetryStrategy.run
+  [22] io.zeebe.util.retry.RecoverableRetryStrategy$$Lambda$445.758568844.run
+  [23] io.zeebe.util.sched.ActorJob.invoke
+  [24] io.zeebe.util.sched.ActorJob.execute
+  [25] io.zeebe.util.sched.ActorTask.execute
+  [26] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [27] io.zeebe.util.sched.ActorThread.doWork
+  [28] io.zeebe.util.sched.ActorThread.run
+
+--- 1999961 misses (2.17%), 2 samples
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] /usr/lib/jvm/java-11-openjdk/lib/libjava.so
+  [ 4] java.lang.Throwable.fillInStackTrace
+  [ 5] java.lang.Throwable.fillInStackTrace
+  [ 6] java.lang.Throwable.<init>
+  [ 7] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 8] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 9] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptAbstract
+  [10] org.mockito.codegen.Consumer$MockitoMock$277942954.accept
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.notifyListener
+  [12] io.zeebe.engine.processor.ProcessingStateMachine.lambda$executeSideEffects$11
+  [13] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$448.500953551.accept
+  [14] io.zeebe.util.sched.future.FutureContinuationRunnable.run
+  [15] io.zeebe.util.sched.ActorJob.invoke
+  [16] io.zeebe.util.sched.ActorJob.execute
+  [17] io.zeebe.util.sched.ActorTask.execute
+  [18] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [19] io.zeebe.util.sched.ActorThread.doWork
+  [20] io.zeebe.util.sched.ActorThread.run
+
+--- 1999938 misses (2.17%), 2 samples
+  [ 0] java.util.HashMap.getNode
+  [ 1] java.util.HashMap.get
+  [ 2] org.mockito.internal.util.Primitives.defaultValue
+  [ 3] org.mockito.internal.handler.NullResultGuardian.handle
+  [ 4] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [ 5] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 6] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 7] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [ 8] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [ 9] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [10] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [11] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [12] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [13] io.zeebe.util.sched.ActorJob.invoke
+  [14] io.zeebe.util.sched.ActorJob.execute
+  [15] io.zeebe.util.sched.ActorTask.execute
+  [16] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [17] io.zeebe.util.sched.ActorThread.doWork
+  [18] io.zeebe.util.sched.ActorThread.run
+
+--- 1999924 misses (2.17%), 2 samples
+  [ 0] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.wrapValueView
+  [ 1] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.exists
+  [ 2] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.exists
+  [ 3] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.exists
+  [ 4] io.zeebe.engine.state.BlackList.isOnBlacklist
+  [ 5] io.zeebe.engine.state.ZeebeState.isOnBlacklist
+  [ 6] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [ 7] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [ 8] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [ 9] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [10] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [12] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [13] io.zeebe.engine.processor.StreamProcessor$$Lambda$344.813366567.run
+  [14] io.zeebe.util.sched.ActorJob.invoke
+  [15] io.zeebe.util.sched.ActorJob.execute
+  [16] io.zeebe.util.sched.ActorTask.execute
+  [17] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [18] io.zeebe.util.sched.ActorThread.doWork
+  [19] io.zeebe.util.sched.ActorThread.run
+
+--- 1999858 misses (2.17%), 2 samples
+  [ 0] io.zeebe.msgpack.value.ObjectValue.read
+  [ 1] io.zeebe.msgpack.UnpackedObject.wrap
+  [ 2] io.zeebe.logstreams.impl.log.LoggedEventImpl.readValue
+  [ 3] io.zeebe.engine.processor.RecordValues.readRecordValue
+  [ 4] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [ 5] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [ 6] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [ 7] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [ 8] io.zeebe.util.sched.ActorJob.invoke
+  [ 9] io.zeebe.util.sched.ActorJob.execute
+  [10] io.zeebe.util.sched.ActorTask.execute
+  [11] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [12] io.zeebe.util.sched.ActorThread.doWork
+  [13] io.zeebe.util.sched.ActorThread.run
+
+--- 1000236 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 4] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 5] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 6] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 7] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 8] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 9] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [10] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [11] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [12] start_thread
+
+--- 1000215 misses (1.09%), 1 sample
+  [ 0] java.security.BasicPermission.<init>
+  [ 1] java.lang.RuntimePermission.<init>
+  [ 2] java.lang.Thread.setContextClassLoader
+  [ 3] sun.rmi.transport.Transport.lambda$setContextClassLoader$1
+  [ 4] sun.rmi.transport.Transport$$Lambda$515.879457780.run
+  [ 5] java.security.AccessController.doPrivileged
+  [ 6] sun.rmi.transport.Transport.setContextClassLoader
+  [ 7] sun.rmi.transport.Transport.serviceCall
+  [ 8] sun.rmi.transport.tcp.TCPTransport.handleMessages
+  [ 9] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0
+  [10] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0
+  [11] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$508.7328211.run
+  [12] java.security.AccessController.doPrivileged
+  [13] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run
+  [14] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [15] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [16] java.lang.Thread.run
+
+--- 1000191 misses (1.09%), 1 sample
+  [ 0] io.zeebe.util.StringUtil.getBytes
+  [ 1] io.zeebe.util.buffer.BufferUtil.wrapString
+  [ 2] io.zeebe.msgpack.value.StringValue.<init>
+  [ 3] io.zeebe.msgpack.property.BaseProperty.<init>
+  [ 4] io.zeebe.msgpack.property.LongProperty.<init>
+  [ 5] io.zeebe.engine.state.instance.IndexedRecord.<init>
+  [ 6] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [ 7] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 8] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 9] io.zeebe.engine.processor.workflow.BpmnStepContext.getElementInstance
+  [10] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isStateSameAsElementState
+  [11] io.zeebe.engine.processor.workflow.handlers.element.ElementActivatingHandler.shouldHandleState
+  [12] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [13] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [14] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [15] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [16] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [17] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [18] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [19] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [20] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [22] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [23] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [24] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [25] io.zeebe.util.sched.ActorJob.invoke
+  [26] io.zeebe.util.sched.ActorJob.execute
+  [27] io.zeebe.util.sched.ActorTask.execute
+  [28] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [29] io.zeebe.util.sched.ActorThread.doWork
+  [30] io.zeebe.util.sched.ActorThread.run
+
+--- 1000182 misses (1.09%), 1 sample
+  [ 0] jbyte_disjoint_arraycopy
+  [ 1] java.lang.AbstractStringBuilder.<init>
+  [ 2] java.lang.StringBuilder.<init>
+  [ 3] org.mockito.internal.debugging.LocationImpl.computeStackTraceInformation
+  [ 4] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 5] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 6] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 7] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 8] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptAbstract
+  [ 9] org.mockito.codegen.Consumer$MockitoMock$277942954.accept
+  [10] io.zeebe.engine.processor.ProcessingStateMachine.notifyListener
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.lambda$executeSideEffects$11
+  [12] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$448.500953551.accept
+  [13] io.zeebe.util.sched.future.FutureContinuationRunnable.run
+  [14] io.zeebe.util.sched.ActorJob.invoke
+  [15] io.zeebe.util.sched.ActorJob.execute
+  [16] io.zeebe.util.sched.ActorTask.execute
+  [17] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [18] io.zeebe.util.sched.ActorThread.doWork
+  [19] io.zeebe.util.sched.ActorThread.run
+
+--- 1000175 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] jdk.internal.misc.Unsafe.park
+  [ 4] java.util.concurrent.locks.LockSupport.parkNanos
+  [ 5] org.agrona.concurrent.BackoffIdleStrategy.idle
+  [ 6] io.zeebe.util.sched.ActorThread$ActorTaskRunnerIdleStrategy.onIdle
+  [ 7] io.zeebe.util.sched.ActorThread.doWork
+  [ 8] io.zeebe.util.sched.ActorThread.run
+
+--- 1000170 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 4] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 5] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 6] java.lang.StackTraceElement.initStackTraceElements
+  [ 7] java.lang.StackTraceElement.of
+  [ 8] java.lang.Throwable.getOurStackTrace
+  [ 9] java.lang.Throwable.getStackTrace
+  [10] org.mockito.internal.exceptions.stacktrace.StackTraceFilter.filterFirst
+  [11] org.mockito.internal.debugging.LocationImpl.computeStackTraceInformation
+  [12] org.mockito.internal.debugging.LocationImpl.<init>
+  [13] org.mockito.internal.debugging.LocationImpl.<init>
+  [14] org.mockito.internal.debugging.LocationImpl.<init>
+  [15] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [16] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptAbstract
+  [17] org.mockito.codegen.Consumer$MockitoMock$277942954.accept
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.notifyListener
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.lambda$executeSideEffects$11
+  [20] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$448.500953551.accept
+  [21] io.zeebe.util.sched.future.FutureContinuationRunnable.run
+  [22] io.zeebe.util.sched.ActorJob.invoke
+  [23] io.zeebe.util.sched.ActorJob.execute
+  [24] io.zeebe.util.sched.ActorTask.execute
+  [25] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [26] io.zeebe.util.sched.ActorThread.doWork
+  [27] io.zeebe.util.sched.ActorThread.run
+
+--- 1000128 misses (1.09%), 1 sample
+  [ 0] copy_user_enhanced_fast_string_[k]
+  [ 1] copyout_[k]
+  [ 2] copy_page_to_iter_[k]
+  [ 3] generic_file_read_iter_[k]
+  [ 4] new_sync_read_[k]
+  [ 5] vfs_read_[k]
+  [ 6] ksys_read_[k]
+  [ 7] do_syscall_64_[k]
+  [ 8] entry_SYSCALL_64_after_hwframe_[k]
+  [ 9] __GI___read
+  [10] sun.nio.ch.FileDispatcherImpl.read0
+  [11] sun.nio.ch.FileDispatcherImpl.read
+  [12] sun.nio.ch.IOUtil.readIntoNativeBuffer
+  [13] sun.nio.ch.IOUtil.read
+  [14] sun.nio.ch.FileChannelImpl.read
+  [15] io.atomix.storage.journal.FileChannelJournalSegmentReader.readNext
+  [16] io.atomix.storage.journal.FileChannelJournalSegmentReader.hasNext
+  [17] io.atomix.storage.journal.MappableJournalSegmentReader.hasNext
+  [18] io.atomix.storage.journal.SegmentedJournalReader.hasNextEntry
+  [19] io.atomix.storage.journal.SegmentedJournalReader.hasNext
+  [20] io.atomix.storage.journal.DelegatingJournalReader.hasNext
+  [21] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.findEntry
+  [22] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.read
+  [23] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.lambda$readBlockIntoBuffer$1
+  [24] io.zeebe.logstreams.impl.log.LogStreamReaderImpl$$Lambda$383.1923772135.applyAsLong
+  [25] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.executeReadMethod
+  [26] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readBlockIntoBuffer
+  [27] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextAddress
+  [28] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.hasNext
+  [29] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor.onNewEventCommitted
+  [30] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor$$Lambda$352.200168363.run
+  [31] io.zeebe.util.sched.ActorJob.invoke
+  [32] io.zeebe.util.sched.ActorJob.execute
+  [33] io.zeebe.util.sched.ActorTask.execute
+  [34] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [35] io.zeebe.util.sched.ActorThread.doWork
+  [36] io.zeebe.util.sched.ActorThread.run
+
+--- 1000127 misses (1.09%), 1 sample
+  [ 0] io.zeebe.logstreams.impl.log.LogStreamBatchWriterImpl.tryWrite
+  [ 1] io.zeebe.engine.processor.TypedCommandWriterImpl.flush
+  [ 2] io.zeebe.engine.processor.ProcessingStateMachine.lambda$writeEvent$6
+  [ 3] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$440.104535624.run
+  [ 4] io.zeebe.util.retry.ActorRetryMechanism.run
+  [ 5] io.zeebe.util.retry.AbortableRetryStrategy.run
+  [ 6] io.zeebe.util.retry.AbortableRetryStrategy$$Lambda$441.879505271.run
+  [ 7] io.zeebe.util.sched.ActorJob.invoke
+  [ 8] io.zeebe.util.sched.ActorJob.execute
+  [ 9] io.zeebe.util.sched.ActorTask.execute
+  [10] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [11] io.zeebe.util.sched.ActorThread.doWork
+  [12] io.zeebe.util.sched.ActorThread.run
+
+--- 1000125 misses (1.09%), 1 sample
+  [ 0] java.util.stream.AbstractPipeline.evaluate
+  [ 1] java.util.stream.ReferencePipeline.findFirst
+  [ 2] io.zeebe.test.util.stream.StreamWrapper.findFirst
+  [ 3] io.zeebe.engine.processor.workflow.perf.PerfDeploymentTest.getStartTime
+  [ 4] io.zeebe.engine.processor.workflow.perf.PerfDeploymentTest.shouldCreateDeploymentWithBpmnXml
+  [ 5] jdk.internal.reflect.NativeMethodAccessorImpl.invoke0
+  [ 6] jdk.internal.reflect.NativeMethodAccessorImpl.invoke
+  [ 7] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [ 8] java.lang.reflect.Method.invoke
+  [ 9] org.junit.runners.model.FrameworkMethod$1.runReflectiveCall
+  [10] org.junit.internal.runners.model.ReflectiveCallable.run
+  [11] org.junit.runners.model.FrameworkMethod.invokeExplosively
+  [12] org.junit.internal.runners.statements.InvokeMethod.evaluate
+  [13] org.junit.internal.runners.statements.RunBefores.evaluate
+  [14] org.junit.internal.runners.statements.RunAfters.evaluate
+  [15] org.junit.rules.ExternalResource$1.evaluate
+  [16] org.junit.rules.TestWatcher$1.evaluate
+  [17] org.junit.rules.ExternalResource$1.evaluate
+  [18] org.junit.rules.ExternalResource$1.evaluate
+  [19] org.junit.rules.ExternalResource$1.evaluate
+  [20] org.junit.rules.ExternalResource$1.evaluate
+  [21] org.junit.rules.RunRules.evaluate
+  [22] org.junit.runners.ParentRunner$3.evaluate
+  [23] org.junit.runners.BlockJUnit4ClassRunner$1.evaluate
+  [24] org.junit.runners.ParentRunner.runLeaf
+  [25] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [26] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [27] org.junit.runners.ParentRunner$4.run
+  [28] org.junit.runners.ParentRunner$1.schedule
+  [29] org.junit.runners.ParentRunner.runChildren
+  [30] org.junit.runners.ParentRunner.access$100
+  [31] org.junit.runners.ParentRunner$2.evaluate
+  [32] org.junit.runners.ParentRunner.run
+  [33] org.junit.runners.Suite.runChild
+  [34] org.junit.runners.Suite.runChild
+  [35] org.junit.runners.ParentRunner$4.run
+  [36] org.junit.runners.ParentRunner$1.schedule
+  [37] org.junit.runners.ParentRunner.runChildren
+  [38] org.junit.runners.ParentRunner.access$100
+  [39] org.junit.runners.ParentRunner$2.evaluate
+  [40] org.junit.internal.runners.statements.RunBefores.evaluate
+  [41] org.junit.internal.runners.statements.RunAfters.evaluate
+  [42] org.junit.rules.ExternalResource$1.evaluate
+  [43] org.junit.rules.TestWatcher$1.evaluate
+  [44] org.junit.rules.ExternalResource$1.evaluate
+  [45] org.junit.rules.ExternalResource$1.evaluate
+  [46] org.junit.rules.ExternalResource$1.evaluate
+  [47] org.junit.rules.ExternalResource$1.evaluate
+  [48] org.junit.rules.RunRules.evaluate
+  [49] org.junit.rules.ExternalResource$1.evaluate
+  [50] org.junit.rules.RunRules.evaluate
+  [51] org.junit.rules.RunRules.evaluate
+  [52] org.junit.runners.ParentRunner$3.evaluate
+  [53] org.junit.runners.ParentRunner.run
+  [54] org.junit.runner.JUnitCore.run
+  [55] com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs
+  [56] com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs
+  [57] com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart
+  [58] com.intellij.rt.execution.junit.JUnitStarter.main
+
+--- 1000102 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] java.lang.StackTraceElement.initStackTraceElements
+  [ 4] java.lang.StackTraceElement.of
+  [ 5] java.lang.Throwable.getOurStackTrace
+  [ 6] java.lang.Throwable.getStackTrace
+  [ 7] org.mockito.internal.exceptions.stacktrace.StackTraceFilter.filterFirst
+  [ 8] org.mockito.internal.debugging.LocationImpl.computeStackTraceInformation
+  [ 9] org.mockito.internal.debugging.LocationImpl.<init>
+  [10] org.mockito.internal.debugging.LocationImpl.<init>
+  [11] org.mockito.internal.debugging.LocationImpl.<init>
+  [12] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [13] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptAbstract
+  [14] org.mockito.codegen.Consumer$MockitoMock$277942954.accept
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.notifyListener
+  [16] io.zeebe.engine.processor.ProcessingStateMachine.lambda$executeSideEffects$11
+  [17] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$448.500953551.accept
+  [18] io.zeebe.util.sched.future.FutureContinuationRunnable.run
+  [19] io.zeebe.util.sched.ActorJob.invoke
+  [20] io.zeebe.util.sched.ActorJob.execute
+  [21] io.zeebe.util.sched.ActorTask.execute
+  [22] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [23] io.zeebe.util.sched.ActorThread.doWork
+  [24] io.zeebe.util.sched.ActorThread.run
+
+--- 1000096 misses (1.09%), 1 sample
+  [ 0] update_load_avg_[k]
+  [ 1] enqueue_entity_[k]
+  [ 2] enqueue_task_fair_[k]
+  [ 3] activate_task_[k]
+  [ 4] ttwu_do_activate_[k]
+  [ 5] try_to_wake_up_[k]
+  [ 6] wake_up_q_[k]
+  [ 7] futex_wake_[k]
+  [ 8] do_futex_[k]
+  [ 9] __x64_sys_futex_[k]
+  [10] do_syscall_64_[k]
+  [11] entry_SYSCALL_64_after_hwframe_[k]
+  [12] pthread_cond_signal@@GLIBC_2.3.2
+
+--- 1000089 misses (1.09%), 1 sample
+  [ 0] free_unref_page_list_[k]
+  [ 1] release_pages_[k]
+  [ 2] __pagevec_release_[k]
+  [ 3] __filemap_fdatawait_range_[k]
+  [ 4] file_write_and_wait_range_[k]
+  [ 5] ext4_sync_file?[ext4]_[k]
+  [ 6] do_fsync_[k]
+  [ 7] __x64_sys_fsync_[k]
+  [ 8] do_syscall_64_[k]
+  [ 9] entry_SYSCALL_64_after_hwframe_[k]
+  [10] fsync
+  [11] sun.nio.ch.FileDispatcherImpl.force0
+  [12] sun.nio.ch.FileDispatcherImpl.force
+  [13] sun.nio.ch.FileChannelImpl.force
+  [14] io.atomix.storage.journal.FileChannelJournalSegmentWriter.flush
+  [15] io.atomix.storage.journal.MappableJournalSegmentWriter.flush
+  [16] io.atomix.storage.journal.SegmentedJournalWriter$$Lambda$378.43919892.run
+  [17] io.prometheus.client.Histogram$Child.time
+  [18] io.atomix.storage.statistics.JournalMetrics.observeSegmentFlush
+  [19] io.atomix.storage.journal.SegmentedJournalWriter.flush
+  [20] io.atomix.storage.journal.SegmentedJournalWriter.commit
+  [21] io.atomix.storage.journal.DelegatingJournalWriter.commit
+  [22] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [23] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [24] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [25] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [26] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [27] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [28] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [29] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [30] org.mockito.Answers.answer
+  [31] org.mockito.internal.handler.MockHandlerImpl.handle
+  [32] org.mockito.internal.handler.NullResultGuardian.handle
+  [33] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [34] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [35] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [36] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [37] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [38] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [39] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [40] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [41] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [42] io.zeebe.util.sched.ActorJob.invoke
+  [43] io.zeebe.util.sched.ActorJob.execute
+  [44] io.zeebe.util.sched.ActorTask.execute
+  [45] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [46] io.zeebe.util.sched.ActorThread.doWork
+  [47] io.zeebe.util.sched.ActorThread.run
+
+--- 1000087 misses (1.09%), 1 sample
+  [ 0] org.agrona.concurrent.UnsafeBuffer.equals
+  [ 1] java.util.Objects.equals
+  [ 2] io.zeebe.msgpack.value.StringValue.equals
+  [ 3] io.zeebe.msgpack.value.EnumValue.read
+  [ 4] io.zeebe.msgpack.property.BaseProperty.read
+  [ 5] io.zeebe.msgpack.value.ObjectValue.read
+  [ 6] io.zeebe.msgpack.UnpackedObject.wrap
+  [ 7] io.zeebe.logstreams.impl.log.LoggedEventImpl.readValue
+  [ 8] io.zeebe.engine.processor.RecordValues.readRecordValue
+  [ 9] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [10] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [12] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [13] io.zeebe.util.sched.ActorJob.invoke
+  [14] io.zeebe.util.sched.ActorJob.execute
+  [15] io.zeebe.util.sched.ActorTask.execute
+  [16] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [17] io.zeebe.util.sched.ActorThread.doWork
+  [18] io.zeebe.util.sched.ActorThread.run
+
+--- 1000081 misses (1.09%), 1 sample
+  [ 0] __srcu_read_lock_[k]
+  [ 1] fsnotify_[k]
+  [ 2] __fsnotify_parent_[k]
+  [ 3] vfs_write_[k]
+  [ 4] ksys_write_[k]
+  [ 5] do_syscall_64_[k]
+  [ 6] entry_SYSCALL_64_after_hwframe_[k]
+  [ 7] __GI___libc_write
+  [ 8] rocksdb::WritableFileWriter::WriteBuffered(char const*, unsigned long)
+  [ 9] rocksdb::WritableFileWriter::Flush()
+  [10] rocksdb::log::Writer::AddRecord(rocksdb::Slice const&)
+  [11] rocksdb::DBImpl::WriteToWAL(rocksdb::WriteBatch const&, rocksdb::log::Writer*, unsigned long*, unsigned long*)
+  [12] rocksdb::DBImpl::WriteToWAL(rocksdb::WriteThread::WriteGroup const&, rocksdb::log::Writer*, unsigned long*, bool, bool, unsigned long)
+  [13] rocksdb::DBImpl::WriteImpl(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*, unsigned long*, unsigned long, bool, unsigned long*, unsigned long, rocksdb::PreReleaseCallback*)
+  [14] rocksdb::DBImpl::WriteWithCallback(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*)
+  [15] rocksdb::OptimisticTransaction::Commit()
+  [16] Java_org_rocksdb_Transaction_commit
+  [17] org.rocksdb.Transaction.commit
+  [18] org.rocksdb.Transaction.commit
+  [19] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commitInternal
+  [20] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commit
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.lambda$updateState$9
+  [22] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$444.978940892.run
+  [23] io.zeebe.util.retry.ActorRetryMechanism.run
+  [24] io.zeebe.util.retry.RecoverableRetryStrategy.run
+  [25] io.zeebe.util.retry.RecoverableRetryStrategy$$Lambda$445.758568844.run
+  [26] io.zeebe.util.sched.ActorJob.invoke
+  [27] io.zeebe.util.sched.ActorJob.execute
+  [28] io.zeebe.util.sched.ActorTask.execute
+  [29] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [30] io.zeebe.util.sched.ActorThread.doWork
+  [31] io.zeebe.util.sched.ActorThread.run
+
+--- 1000081 misses (1.09%), 1 sample
+  [ 0] java.util.Objects.requireNonNull
+  [ 1] org.assertj.core.api.WritableAssertionInfo.useRepresentation
+  [ 2] org.assertj.core.api.WritableAssertionInfo.<init>
+  [ 3] org.assertj.core.api.AbstractAssert.<init>
+  [ 4] org.assertj.core.api.AbstractBooleanAssert.<init>
+  [ 5] org.assertj.core.api.BooleanAssert.<init>
+  [ 6] org.assertj.core.api.AssertionsForClassTypes.assertThat
+  [ 7] org.assertj.core.api.Assertions.assertThat
+  [ 8] io.zeebe.test.util.TestUtil$Invocation.until
+  [ 9] io.zeebe.test.util.TestUtil$Invocation.until
+  [10] io.zeebe.engine.processor.workflow.perf.TestStreams$FluentLogWriter.write
+  [11] io.zeebe.engine.processor.workflow.perf.StreamProcessingComposite.writeCommand
+  [12] io.zeebe.engine.processor.workflow.perf.StreamProcessorRule.writeCommand
+  [13] io.zeebe.engine.processor.workflow.perf.client.WorkflowInstanceClient$WorkflowInstanceCreationClient.create
+  [14] io.zeebe.engine.processor.workflow.perf.PerfDeploymentTest.shouldCreateDeploymentWithBpmnXml
+  [15] jdk.internal.reflect.NativeMethodAccessorImpl.invoke0
+  [16] jdk.internal.reflect.NativeMethodAccessorImpl.invoke
+  [17] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [18] java.lang.reflect.Method.invoke
+  [19] org.junit.runners.model.FrameworkMethod$1.runReflectiveCall
+  [20] org.junit.internal.runners.model.ReflectiveCallable.run
+  [21] org.junit.runners.model.FrameworkMethod.invokeExplosively
+  [22] org.junit.internal.runners.statements.InvokeMethod.evaluate
+  [23] org.junit.internal.runners.statements.RunBefores.evaluate
+  [24] org.junit.internal.runners.statements.RunAfters.evaluate
+  [25] org.junit.rules.ExternalResource$1.evaluate
+  [26] org.junit.rules.TestWatcher$1.evaluate
+  [27] org.junit.rules.ExternalResource$1.evaluate
+  [28] org.junit.rules.ExternalResource$1.evaluate
+  [29] org.junit.rules.ExternalResource$1.evaluate
+  [30] org.junit.rules.ExternalResource$1.evaluate
+  [31] org.junit.rules.RunRules.evaluate
+  [32] org.junit.runners.ParentRunner$3.evaluate
+  [33] org.junit.runners.BlockJUnit4ClassRunner$1.evaluate
+  [34] org.junit.runners.ParentRunner.runLeaf
+  [35] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [36] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [37] org.junit.runners.ParentRunner$4.run
+  [38] org.junit.runners.ParentRunner$1.schedule
+  [39] org.junit.runners.ParentRunner.runChildren
+  [40] org.junit.runners.ParentRunner.access$100
+  [41] org.junit.runners.ParentRunner$2.evaluate
+  [42] org.junit.runners.ParentRunner.run
+  [43] org.junit.runners.Suite.runChild
+  [44] org.junit.runners.Suite.runChild
+  [45] org.junit.runners.ParentRunner$4.run
+  [46] org.junit.runners.ParentRunner$1.schedule
+  [47] org.junit.runners.ParentRunner.runChildren
+  [48] org.junit.runners.ParentRunner.access$100
+  [49] org.junit.runners.ParentRunner$2.evaluate
+  [50] org.junit.internal.runners.statements.RunBefores.evaluate
+  [51] org.junit.internal.runners.statements.RunAfters.evaluate
+  [52] org.junit.rules.ExternalResource$1.evaluate
+  [53] org.junit.rules.TestWatcher$1.evaluate
+  [54] org.junit.rules.ExternalResource$1.evaluate
+  [55] org.junit.rules.ExternalResource$1.evaluate
+  [56] org.junit.rules.ExternalResource$1.evaluate
+  [57] org.junit.rules.ExternalResource$1.evaluate
+  [58] org.junit.rules.RunRules.evaluate
+  [59] org.junit.rules.ExternalResource$1.evaluate
+  [60] org.junit.rules.RunRules.evaluate
+  [61] org.junit.rules.RunRules.evaluate
+  [62] org.junit.runners.ParentRunner$3.evaluate
+  [63] org.junit.runners.ParentRunner.run
+  [64] org.junit.runner.JUnitCore.run
+  [65] com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs
+  [66] com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs
+  [67] com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart
+  [68] com.intellij.rt.execution.junit.JUnitStarter.main
+
+--- 1000078 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 4] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 5] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 6] java.lang.StackTraceElement.initStackTraceElements
+  [ 7] java.lang.StackTraceElement.of
+  [ 8] java.lang.Throwable.getOurStackTrace
+  [ 9] java.lang.Throwable.getStackTrace
+  [10] org.mockito.internal.exceptions.stacktrace.StackTraceFilter.filterFirst
+  [11] org.mockito.internal.debugging.LocationImpl.computeStackTraceInformation
+  [12] org.mockito.internal.debugging.LocationImpl.<init>
+  [13] org.mockito.internal.debugging.LocationImpl.<init>
+  [14] org.mockito.internal.debugging.LocationImpl.<init>
+  [15] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [16] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [17] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [18] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [19] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [20] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [21] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [22] io.zeebe.util.sched.ActorJob.invoke
+  [23] io.zeebe.util.sched.ActorJob.execute
+  [24] io.zeebe.util.sched.ActorTask.execute
+  [25] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [26] io.zeebe.util.sched.ActorThread.doWork
+  [27] io.zeebe.util.sched.ActorThread.run
+
+--- 1000078 misses (1.09%), 1 sample
+  [ 0] _raw_spin_lock_[k]
+  [ 1] __queue_work_[k]
+  [ 2] queue_work_on_[k]
+  [ 3] crypt_map?[dm_crypt]_[k]
+  [ 4] __map_bio?[dm_mod]_[k]
+  [ 5] __split_and_process_non_flush?[dm_mod]_[k]
+  [ 6] __split_and_process_bio?[dm_mod]_[k]
+  [ 7] dm_process_bio?[dm_mod]_[k]
+  [ 8] dm_make_request?[dm_mod]_[k]
+  [ 9] generic_make_request_[k]
+  [10] submit_bio_[k]
+  [11] ext4_io_submit?[ext4]_[k]
+  [12] ext4_writepages?[ext4]_[k]
+  [13] do_writepages_[k]
+  [14] __filemap_fdatawrite_range_[k]
+  [15] file_write_and_wait_range_[k]
+  [16] ext4_sync_file?[ext4]_[k]
+  [17] do_fsync_[k]
+  [18] __x64_sys_fsync_[k]
+  [19] do_syscall_64_[k]
+  [20] entry_SYSCALL_64_after_hwframe_[k]
+  [21] fsync
+  [22] sun.nio.ch.FileDispatcherImpl.force0
+  [23] sun.nio.ch.FileDispatcherImpl.force
+  [24] sun.nio.ch.FileChannelImpl.force
+  [25] io.atomix.storage.journal.FileChannelJournalSegmentWriter.flush
+  [26] io.atomix.storage.journal.MappableJournalSegmentWriter.flush
+  [27] io.atomix.storage.journal.SegmentedJournalWriter$$Lambda$378.43919892.run
+  [28] io.prometheus.client.Histogram$Child.time
+  [29] io.atomix.storage.statistics.JournalMetrics.observeSegmentFlush
+  [30] io.atomix.storage.journal.SegmentedJournalWriter.flush
+  [31] io.atomix.storage.journal.SegmentedJournalWriter.commit
+  [32] io.atomix.storage.journal.DelegatingJournalWriter.commit
+  [33] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [34] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [35] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [36] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [37] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [38] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [39] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [40] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [41] org.mockito.Answers.answer
+  [42] org.mockito.internal.handler.MockHandlerImpl.handle
+  [43] org.mockito.internal.handler.NullResultGuardian.handle
+  [44] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [45] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [46] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [47] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [48] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [49] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [50] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [51] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [52] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [53] io.zeebe.util.sched.ActorJob.invoke
+  [54] io.zeebe.util.sched.ActorJob.execute
+  [55] io.zeebe.util.sched.ActorTask.execute
+  [56] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [57] io.zeebe.util.sched.ActorThread.doWork
+  [58] io.zeebe.util.sched.ActorThread.run
+
+--- 1000074 misses (1.09%), 1 sample
+  [ 0] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [ 1] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [ 2] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 3] io.zeebe.engine.processor.workflow.BpmnStepContext.getElementInstance
+  [ 4] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isStateSameAsElementState
+  [ 5] io.zeebe.engine.processor.workflow.handlers.element.ElementActivatingHandler.shouldHandleState
+  [ 6] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [ 7] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [ 8] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [ 9] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [10] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [12] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [13] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [14] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [16] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [17] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [18] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [19] io.zeebe.util.sched.ActorJob.invoke
+  [20] io.zeebe.util.sched.ActorJob.execute
+  [21] io.zeebe.util.sched.ActorTask.execute
+  [22] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [23] io.zeebe.util.sched.ActorThread.doWork
+  [24] io.zeebe.util.sched.ActorThread.run
+
+--- 1000070 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 4] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 5] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 6] /usr/lib/jvm/java-11-openjdk/lib/libjava.so
+  [ 7] java.lang.Throwable.fillInStackTrace
+  [ 8] java.lang.Throwable.fillInStackTrace
+  [ 9] java.lang.Throwable.<init>
+  [10] org.mockito.internal.debugging.LocationImpl.<init>
+  [11] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [12] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [13] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [14] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [15] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [16] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [17] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [18] io.zeebe.util.sched.ActorJob.invoke
+  [19] io.zeebe.util.sched.ActorJob.execute
+  [20] io.zeebe.util.sched.ActorTask.execute
+  [21] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [22] io.zeebe.util.sched.ActorThread.doWork
+  [23] io.zeebe.util.sched.ActorThread.run
+
+--- 1000069 misses (1.09%), 1 sample
+  [ 0] io.zeebe.msgpack.value.EnumValue.<init>
+  [ 1] io.zeebe.msgpack.value.EnumValue.<init>
+  [ 2] io.zeebe.msgpack.property.EnumProperty.<init>
+  [ 3] io.zeebe.engine.state.instance.IndexedRecord.<init>
+  [ 4] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [ 5] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 6] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 7] io.zeebe.engine.processor.workflow.BpmnStepContext.getElementInstance
+  [ 8] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isStateSameAsElementState
+  [ 9] io.zeebe.engine.processor.workflow.handlers.element.ElementCompletingHandler.shouldHandleState
+  [10] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [11] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [12] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [13] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [14] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [16] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [20] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [22] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [23] io.zeebe.util.sched.ActorJob.invoke
+  [24] io.zeebe.util.sched.ActorJob.execute
+  [25] io.zeebe.util.sched.ActorTask.execute
+  [26] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [27] io.zeebe.util.sched.ActorThread.doWork
+  [28] io.zeebe.util.sched.ActorThread.run
+
+--- 1000063 misses (1.09%), 1 sample
+  [ 0] __audit_syscall_exit_[k]
+  [ 1] syscall_slow_exit_work_[k]
+  [ 2] do_syscall_64_[k]
+  [ 3] entry_SYSCALL_64_after_hwframe_[k]
+  [ 4] fsync
+  [ 5] sun.nio.ch.FileDispatcherImpl.force0
+  [ 6] sun.nio.ch.FileDispatcherImpl.force
+  [ 7] sun.nio.ch.FileChannelImpl.force
+  [ 8] io.atomix.storage.journal.FileChannelJournalSegmentWriter.flush
+  [ 9] io.atomix.storage.journal.MappableJournalSegmentWriter.flush
+  [10] io.atomix.storage.journal.SegmentedJournalWriter$$Lambda$378.43919892.run
+  [11] io.prometheus.client.Histogram$Child.time
+  [12] io.atomix.storage.statistics.JournalMetrics.observeSegmentFlush
+  [13] io.atomix.storage.journal.SegmentedJournalWriter.flush
+  [14] io.atomix.storage.journal.SegmentedJournalWriter.commit
+  [15] io.atomix.storage.journal.DelegatingJournalWriter.commit
+  [16] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [17] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [18] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [19] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [20] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [21] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [22] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [23] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [24] org.mockito.Answers.answer
+  [25] org.mockito.internal.handler.MockHandlerImpl.handle
+  [26] org.mockito.internal.handler.NullResultGuardian.handle
+  [27] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [28] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [29] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [30] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [31] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [32] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [33] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [34] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [35] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [36] io.zeebe.util.sched.ActorJob.invoke
+  [37] io.zeebe.util.sched.ActorJob.execute
+  [38] io.zeebe.util.sched.ActorTask.execute
+  [39] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [40] io.zeebe.util.sched.ActorThread.doWork
+  [41] io.zeebe.util.sched.ActorThread.run
+
+--- 1000062 misses (1.09%), 1 sample
+  [ 0] java.lang.String.equals
+  [ 1] org.mockito.internal.creation.SuspendMethod.isContinuationType
+  [ 2] org.mockito.internal.creation.SuspendMethod.trimSuspendParameterTypes
+  [ 3] org.mockito.internal.creation.DelegatingMethod.<init>
+  [ 4] org.mockito.internal.invocation.DefaultInvocationFactory.createMockitoMethod
+  [ 5] org.mockito.internal.invocation.DefaultInvocationFactory.createInvocation
+  [ 6] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 7] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 8] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [ 9] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [10] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [11] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [12] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [13] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [14] io.zeebe.util.sched.ActorJob.invoke
+  [15] io.zeebe.util.sched.ActorJob.execute
+  [16] io.zeebe.util.sched.ActorTask.execute
+  [17] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [18] io.zeebe.util.sched.ActorThread.doWork
+  [19] io.zeebe.util.sched.ActorThread.run
+
+--- 1000058 misses (1.09%), 1 sample
+  [ 0] java.util.LinkedList.addAll
+  [ 1] org.mockito.internal.handler.MockHandlerImpl.handle
+  [ 2] org.mockito.internal.handler.NullResultGuardian.handle
+  [ 3] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [ 4] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 5] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 6] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptAbstract
+  [ 7] org.mockito.codegen.Consumer$MockitoMock$277942954.accept
+  [ 8] io.zeebe.engine.processor.ProcessingStateMachine.notifyListener
+  [ 9] io.zeebe.engine.processor.ProcessingStateMachine.lambda$executeSideEffects$11
+  [10] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$448.500953551.accept
+  [11] io.zeebe.util.sched.future.FutureContinuationRunnable.run
+  [12] io.zeebe.util.sched.ActorJob.invoke
+  [13] io.zeebe.util.sched.ActorJob.execute
+  [14] io.zeebe.util.sched.ActorTask.execute
+  [15] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [16] io.zeebe.util.sched.ActorThread.doWork
+  [17] io.zeebe.util.sched.ActorThread.run
+
+--- 1000051 misses (1.09%), 1 sample
+  [ 0] java.lang.invoke.VarHandleObjects$FieldInstanceReadWrite.compareAndSet
+  [ 1] java.lang.invoke.VarHandleGuards.guard_LLL_Z
+  [ 2] java.util.concurrent.atomic.AtomicReference.compareAndSet
+  [ 3] io.zeebe.util.sched.ActorTask.casState
+  [ 4] io.zeebe.util.sched.ActorTask.tryWakeup
+  [ 5] io.zeebe.util.sched.channel.ChannelConsumerCondition.signal
+  [ 6] io.zeebe.util.sched.channel.ActorConditions.signalConsumers
+  [ 7] io.zeebe.dispatcher.Dispatcher.signalSubsciptions
+  [ 8] io.zeebe.dispatcher.Dispatcher.offer
+  [ 9] io.zeebe.dispatcher.Dispatcher.claim
+  [10] io.zeebe.logstreams.impl.log.LogStreamBatchWriterImpl.claimBatchForEvents
+  [11] io.zeebe.logstreams.impl.log.LogStreamBatchWriterImpl.tryWrite
+  [12] io.zeebe.engine.processor.TypedCommandWriterImpl.flush
+  [13] io.zeebe.engine.processor.ProcessingStateMachine.lambda$writeEvent$6
+  [14] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$440.104535624.run
+  [15] io.zeebe.util.retry.ActorRetryMechanism.run
+  [16] io.zeebe.util.retry.AbortableRetryStrategy.run
+  [17] io.zeebe.util.retry.AbortableRetryStrategy$$Lambda$441.879505271.run
+  [18] io.zeebe.util.sched.ActorJob.invoke
+  [19] io.zeebe.util.sched.ActorJob.execute
+  [20] io.zeebe.util.sched.ActorTask.execute
+  [21] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [22] io.zeebe.util.sched.ActorThread.doWork
+  [23] io.zeebe.util.sched.ActorThread.run
+
+--- 1000047 misses (1.09%), 1 sample
+  [ 0] __srcu_read_lock_[k]
+  [ 1] dm_make_request?[dm_mod]_[k]
+  [ 2] generic_make_request_[k]
+  [ 3] submit_bio_[k]
+  [ 4] ext4_io_submit?[ext4]_[k]
+  [ 5] ext4_writepages?[ext4]_[k]
+  [ 6] do_writepages_[k]
+  [ 7] __filemap_fdatawrite_range_[k]
+  [ 8] file_write_and_wait_range_[k]
+  [ 9] ext4_sync_file?[ext4]_[k]
+  [10] do_fsync_[k]
+  [11] __x64_sys_fsync_[k]
+  [12] do_syscall_64_[k]
+  [13] entry_SYSCALL_64_after_hwframe_[k]
+  [14] fsync
+  [15] sun.nio.ch.FileDispatcherImpl.force0
+  [16] sun.nio.ch.FileDispatcherImpl.force
+  [17] sun.nio.ch.FileChannelImpl.force
+  [18] io.atomix.storage.journal.FileChannelJournalSegmentWriter.flush
+  [19] io.atomix.storage.journal.MappableJournalSegmentWriter.flush
+  [20] io.atomix.storage.journal.SegmentedJournalWriter$$Lambda$378.43919892.run
+  [21] io.prometheus.client.Histogram$Child.time
+  [22] io.atomix.storage.statistics.JournalMetrics.observeSegmentFlush
+  [23] io.atomix.storage.journal.SegmentedJournalWriter.flush
+  [24] io.atomix.storage.journal.SegmentedJournalWriter.commit
+  [25] io.atomix.storage.journal.DelegatingJournalWriter.commit
+  [26] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [27] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [28] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [29] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [30] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [31] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [32] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [33] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [34] org.mockito.Answers.answer
+  [35] org.mockito.internal.handler.MockHandlerImpl.handle
+  [36] org.mockito.internal.handler.NullResultGuardian.handle
+  [37] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [38] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [39] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [40] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [41] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [42] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [43] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [44] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [45] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [46] io.zeebe.util.sched.ActorJob.invoke
+  [47] io.zeebe.util.sched.ActorJob.execute
+  [48] io.zeebe.util.sched.ActorTask.execute
+  [49] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [50] io.zeebe.util.sched.ActorThread.doWork
+  [51] io.zeebe.util.sched.ActorThread.run
+
+--- 1000047 misses (1.09%), 1 sample
+  [ 0] preempt_count_add_[k]
+  [ 1] _raw_spin_lock_[k]
+  [ 2] jbd2_journal_dirty_metadata?[jbd2]_[k]
+  [ 3] __ext4_handle_dirty_metadata?[ext4]_[k]
+  [ 4] ext4_mark_iloc_dirty?[ext4]_[k]
+  [ 5] ext4_mark_inode_dirty?[ext4]_[k]
+  [ 6] ext4_dirty_inode?[ext4]_[k]
+  [ 7] __mark_inode_dirty_[k]
+  [ 8] generic_update_time_[k]
+  [ 9] touch_atime_[k]
+  [10] generic_file_read_iter_[k]
+  [11] new_sync_read_[k]
+  [12] vfs_read_[k]
+  [13] ksys_read_[k]
+  [14] do_syscall_64_[k]
+  [15] entry_SYSCALL_64_after_hwframe_[k]
+  [16] __GI___read
+  [17] sun.nio.ch.FileDispatcherImpl.read0
+  [18] sun.nio.ch.FileDispatcherImpl.read
+  [19] sun.nio.ch.IOUtil.readIntoNativeBuffer
+  [20] sun.nio.ch.IOUtil.read
+  [21] sun.nio.ch.FileChannelImpl.read
+  [22] io.atomix.storage.journal.FileChannelJournalSegmentReader.readNext
+  [23] io.atomix.storage.journal.FileChannelJournalSegmentReader.hasNext
+  [24] io.atomix.storage.journal.MappableJournalSegmentReader.hasNext
+  [25] io.atomix.storage.journal.SegmentedJournalReader.hasNextEntry
+  [26] io.atomix.storage.journal.SegmentedJournalReader.hasNext
+  [27] io.atomix.storage.journal.DelegatingJournalReader.hasNext
+  [28] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.findEntry
+  [29] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.read
+  [30] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.lambda$readBlockIntoBuffer$1
+  [31] io.zeebe.logstreams.impl.log.LogStreamReaderImpl$$Lambda$383.1923772135.applyAsLong
+  [32] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.executeReadMethod
+  [33] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readBlockIntoBuffer
+  [34] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextAddress
+  [35] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.hasNext
+  [36] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor.onNewEventCommitted
+  [37] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor$$Lambda$352.200168363.run
+  [38] io.zeebe.util.sched.ActorJob.invoke
+  [39] io.zeebe.util.sched.ActorJob.execute
+  [40] io.zeebe.util.sched.ActorTask.execute
+  [41] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [42] io.zeebe.util.sched.ActorThread.doWork
+  [43] io.zeebe.util.sched.ActorThread.run
+
+--- 1000044 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] jdk.internal.reflect.Reflection.getCallerClass
+  [ 3] java.lang.Class.newInstance
+  [ 4] io.zeebe.util.ReflectUtil.newInstance
+  [ 5] io.zeebe.engine.processor.CopiedRecords.createCopiedRecord
+  [ 6] io.zeebe.engine.processor.TypedEventImpl.clone
+  [ 7] io.zeebe.test.util.record.RecordingExporter.export
+  [ 8] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor.onNewEventCommitted
+  [ 9] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor$$Lambda$352.200168363.run
+  [10] io.zeebe.util.sched.ActorJob.invoke
+  [11] io.zeebe.util.sched.ActorJob.execute
+  [12] io.zeebe.util.sched.ActorTask.execute
+  [13] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [14] io.zeebe.util.sched.ActorThread.doWork
+  [15] io.zeebe.util.sched.ActorThread.run
+
+--- 1000036 misses (1.09%), 1 sample
+  [ 0] debug_smp_processor_id_[k]
+  [ 1] switch_fpu_return_[k]
+  [ 2] do_syscall_64_[k]
+  [ 3] entry_SYSCALL_64_after_hwframe_[k]
+  [ 4] __pthread_cond_timedwait
+  [ 5] [unknown]
+  [ 6] jdk.internal.misc.Unsafe.park
+  [ 7] java.util.concurrent.locks.LockSupport.parkNanos
+  [ 8] java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await
+  [ 9] io.zeebe.test.util.record.RecordingExporter$RecordIterator.hasNext
+  [10] java.util.Spliterators$IteratorSpliterator.tryAdvance
+  [11] java.util.stream.ReferencePipeline.forEachWithCancel
+  [12] java.util.stream.AbstractPipeline.copyIntoWithCancel
+  [13] java.util.stream.AbstractPipeline.copyInto
+  [14] java.util.stream.AbstractPipeline.wrapAndCopyInto
+  [15] java.util.stream.FindOps$FindOp.evaluateSequential
+  [16] java.util.stream.AbstractPipeline.evaluate
+  [17] java.util.stream.ReferencePipeline.findFirst
+  [18] io.zeebe.test.util.stream.StreamWrapper.findFirst
+  [19] io.zeebe.engine.processor.workflow.perf.PerfDeploymentTest.getStartTime
+  [20] io.zeebe.engine.processor.workflow.perf.PerfDeploymentTest.shouldCreateDeploymentWithBpmnXml
+  [21] jdk.internal.reflect.NativeMethodAccessorImpl.invoke0
+  [22] jdk.internal.reflect.NativeMethodAccessorImpl.invoke
+  [23] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [24] java.lang.reflect.Method.invoke
+  [25] org.junit.runners.model.FrameworkMethod$1.runReflectiveCall
+  [26] org.junit.internal.runners.model.ReflectiveCallable.run
+  [27] org.junit.runners.model.FrameworkMethod.invokeExplosively
+  [28] org.junit.internal.runners.statements.InvokeMethod.evaluate
+  [29] org.junit.internal.runners.statements.RunBefores.evaluate
+  [30] org.junit.internal.runners.statements.RunAfters.evaluate
+  [31] org.junit.rules.ExternalResource$1.evaluate
+  [32] org.junit.rules.TestWatcher$1.evaluate
+  [33] org.junit.rules.ExternalResource$1.evaluate
+  [34] org.junit.rules.ExternalResource$1.evaluate
+  [35] org.junit.rules.ExternalResource$1.evaluate
+  [36] org.junit.rules.ExternalResource$1.evaluate
+  [37] org.junit.rules.RunRules.evaluate
+  [38] org.junit.runners.ParentRunner$3.evaluate
+  [39] org.junit.runners.BlockJUnit4ClassRunner$1.evaluate
+  [40] org.junit.runners.ParentRunner.runLeaf
+  [41] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [42] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [43] org.junit.runners.ParentRunner$4.run
+  [44] org.junit.runners.ParentRunner$1.schedule
+  [45] org.junit.runners.ParentRunner.runChildren
+  [46] org.junit.runners.ParentRunner.access$100
+  [47] org.junit.runners.ParentRunner$2.evaluate
+  [48] org.junit.runners.ParentRunner.run
+  [49] org.junit.runners.Suite.runChild
+  [50] org.junit.runners.Suite.runChild
+  [51] org.junit.runners.ParentRunner$4.run
+  [52] org.junit.runners.ParentRunner$1.schedule
+  [53] org.junit.runners.ParentRunner.runChildren
+  [54] org.junit.runners.ParentRunner.access$100
+  [55] org.junit.runners.ParentRunner$2.evaluate
+  [56] org.junit.internal.runners.statements.RunBefores.evaluate
+  [57] org.junit.internal.runners.statements.RunAfters.evaluate
+  [58] org.junit.rules.ExternalResource$1.evaluate
+  [59] org.junit.rules.TestWatcher$1.evaluate
+  [60] org.junit.rules.ExternalResource$1.evaluate
+  [61] org.junit.rules.ExternalResource$1.evaluate
+  [62] org.junit.rules.ExternalResource$1.evaluate
+  [63] org.junit.rules.ExternalResource$1.evaluate
+  [64] org.junit.rules.RunRules.evaluate
+  [65] org.junit.rules.ExternalResource$1.evaluate
+  [66] org.junit.rules.RunRules.evaluate
+  [67] org.junit.rules.RunRules.evaluate
+  [68] org.junit.runners.ParentRunner$3.evaluate
+  [69] org.junit.runners.ParentRunner.run
+  [70] org.junit.runner.JUnitCore.run
+  [71] com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs
+  [72] com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs
+  [73] com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart
+  [74] com.intellij.rt.execution.junit.JUnitStarter.main
+
+--- 1000032 misses (1.09%), 1 sample
+  [ 0] java.util.Arrays.copyOf
+  [ 1] java.lang.StringCoding.encodeUTF8
+  [ 2] java.lang.StringCoding.encode
+  [ 3] java.lang.String.getBytes
+  [ 4] io.zeebe.util.StringUtil.getBytes
+  [ 5] io.zeebe.util.StringUtil.getBytes
+  [ 6] io.zeebe.util.buffer.BufferUtil.wrapString
+  [ 7] io.zeebe.msgpack.value.StringValue.<init>
+  [ 8] io.zeebe.msgpack.property.BaseProperty.<init>
+  [ 9] io.zeebe.msgpack.property.LongProperty.<init>
+  [10] io.zeebe.engine.state.instance.IndexedRecord.<init>
+  [11] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [12] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [13] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [14] io.zeebe.engine.state.instance.WorkflowEngineState.updateElementInstance
+  [15] io.zeebe.engine.state.instance.WorkflowEngineState.onElementInstanceEventProduced
+  [16] io.zeebe.engine.state.instance.WorkflowEngineState.onEventProduced
+  [17] io.zeebe.engine.processor.workflow.EventOutput.appendFollowUpEvent
+  [18] io.zeebe.engine.processor.workflow.EventOutput.appendFollowUpEvent
+  [19] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.transitionTo
+  [20] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.transitionToNext
+  [21] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [22] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [23] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [24] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [25] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [26] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [27] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [28] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [29] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [30] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [31] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [32] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [33] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [34] io.zeebe.util.sched.ActorJob.invoke
+  [35] io.zeebe.util.sched.ActorJob.execute
+  [36] io.zeebe.util.sched.ActorTask.execute
+  [37] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [38] io.zeebe.util.sched.ActorThread.doWork
+  [39] io.zeebe.util.sched.ActorThread.run
+
+--- 1000023 misses (1.09%), 1 sample
+  [ 0] jdk.internal.misc.Unsafe.checkSize
+  [ 1] jdk.internal.misc.Unsafe.copyMemoryChecks
+  [ 2] jdk.internal.misc.Unsafe.copyMemory
+  [ 3] sun.misc.Unsafe.copyMemory
+  [ 4] org.agrona.concurrent.UnsafeBuffer.getBytes
+  [ 5] io.zeebe.util.buffer.BufferUtil.bufferAsString
+  [ 6] io.zeebe.util.buffer.BufferUtil.bufferAsString
+  [ 7] io.zeebe.protocol.impl.record.RecordMetadata.getRejectionReason
+  [ 8] io.zeebe.protocol.impl.record.CopiedRecord.<init>
+  [ 9] io.zeebe.engine.processor.CopiedRecords.createCopiedRecord
+  [10] io.zeebe.engine.processor.TypedEventImpl.clone
+  [11] io.zeebe.test.util.record.RecordingExporter.export
+  [12] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor.onNewEventCommitted
+  [13] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor$$Lambda$352.200168363.run
+  [14] io.zeebe.util.sched.ActorJob.invoke
+  [15] io.zeebe.util.sched.ActorJob.execute
+  [16] io.zeebe.util.sched.ActorTask.execute
+  [17] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [18] io.zeebe.util.sched.ActorThread.doWork
+  [19] io.zeebe.util.sched.ActorThread.run
+
+--- 1000021 misses (1.09%), 1 sample
+  [ 0] io.zeebe.util.sched.ActorSubscription.triggersInPhase
+  [ 1] io.zeebe.util.sched.ActorTask.pollSubscription
+  [ 2] io.zeebe.util.sched.ActorTask.pollSubscriptions
+  [ 3] io.zeebe.util.sched.ActorTask.poll
+  [ 4] io.zeebe.util.sched.ActorTask.execute
+  [ 5] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [ 6] io.zeebe.util.sched.ActorThread.doWork
+  [ 7] io.zeebe.util.sched.ActorThread.run
+
+--- 1000020 misses (1.09%), 1 sample
+  [ 0] java.lang.AbstractStringBuilder.<init>
+  [ 1] java.lang.StringBuilder.<init>
+  [ 2] java.lang.StackTraceElement.toString
+  [ 3] org.mockito.internal.debugging.LocationImpl.computeStackTraceInformation
+  [ 4] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 5] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 6] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 7] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 8] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptAbstract
+  [ 9] org.mockito.codegen.Consumer$MockitoMock$277942954.accept
+  [10] io.zeebe.engine.processor.ProcessingStateMachine.notifyListener
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.lambda$executeSideEffects$11
+  [12] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$448.500953551.accept
+  [13] io.zeebe.util.sched.future.FutureContinuationRunnable.run
+  [14] io.zeebe.util.sched.ActorJob.invoke
+  [15] io.zeebe.util.sched.ActorJob.execute
+  [16] io.zeebe.util.sched.ActorTask.execute
+  [17] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [18] io.zeebe.util.sched.ActorThread.doWork
+  [19] io.zeebe.util.sched.ActorThread.run
+
+--- 1000019 misses (1.09%), 1 sample
+  [ 0] io.zeebe.engine.state.deployment.WorkflowState.getElementInstanceState
+  [ 1] io.zeebe.engine.processor.workflow.BpmnStepContext.getFlowScopeInstance
+  [ 2] io.zeebe.engine.processor.workflow.handlers.AbstractTerminalStateHandler.isLastActiveExecutionPathInScope
+  [ 3] io.zeebe.engine.processor.workflow.handlers.element.ElementCompletedHandler.handleState
+  [ 4] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [ 5] io.zeebe.engine.processor.workflow.handlers.AbstractTerminalStateHandler.handle
+  [ 6] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [ 7] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [ 8] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [ 9] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [10] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [11] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [12] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [13] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [14] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [16] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [17] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [18] io.zeebe.util.sched.ActorJob.invoke
+  [19] io.zeebe.util.sched.ActorJob.execute
+  [20] io.zeebe.util.sched.ActorTask.execute
+  [21] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [22] io.zeebe.util.sched.ActorThread.doWork
+  [23] io.zeebe.util.sched.ActorThread.run
+
+--- 1000019 misses (1.09%), 1 sample
+  [ 0] io.zeebe.util.sched.ActorControl.submitContinuationJob
+  [ 1] io.zeebe.util.sched.ActorControl.runOnCompletion
+  [ 2] io.zeebe.engine.processor.ProcessingStateMachine.writeEvent
+  [ 3] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [ 4] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [ 5] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [ 6] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [ 7] io.zeebe.util.sched.ActorJob.invoke
+  [ 8] io.zeebe.util.sched.ActorJob.execute
+  [ 9] io.zeebe.util.sched.ActorTask.execute
+  [10] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [11] io.zeebe.util.sched.ActorThread.doWork
+  [12] io.zeebe.util.sched.ActorThread.run
+
+--- 1000018 misses (1.09%), 1 sample
+  [ 0] ext4_mark_iloc_dirty?[ext4]_[k]
+  [ 1] ext4_mark_inode_dirty?[ext4]_[k]
+  [ 2] ext4_dirty_inode?[ext4]_[k]
+  [ 3] __mark_inode_dirty_[k]
+  [ 4] generic_update_time_[k]
+  [ 5] touch_atime_[k]
+  [ 6] generic_file_read_iter_[k]
+  [ 7] new_sync_read_[k]
+  [ 8] vfs_read_[k]
+  [ 9] ksys_read_[k]
+  [10] do_syscall_64_[k]
+  [11] entry_SYSCALL_64_after_hwframe_[k]
+  [12] __GI___read
+  [13] sun.nio.ch.FileDispatcherImpl.read0
+  [14] sun.nio.ch.FileDispatcherImpl.read
+  [15] sun.nio.ch.IOUtil.readIntoNativeBuffer
+  [16] sun.nio.ch.IOUtil.read
+  [17] sun.nio.ch.FileChannelImpl.read
+  [18] io.atomix.storage.journal.FileChannelJournalSegmentReader.readNext
+  [19] io.atomix.storage.journal.FileChannelJournalSegmentReader.hasNext
+  [20] io.atomix.storage.journal.MappableJournalSegmentReader.hasNext
+  [21] io.atomix.storage.journal.SegmentedJournalReader.hasNextEntry
+  [22] io.atomix.storage.journal.SegmentedJournalReader.hasNext
+  [23] io.atomix.storage.journal.DelegatingJournalReader.hasNext
+  [24] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.findEntry
+  [25] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.read
+  [26] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.lambda$readBlockIntoBuffer$1
+  [27] io.zeebe.logstreams.impl.log.LogStreamReaderImpl$$Lambda$383.1923772135.applyAsLong
+  [28] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.executeReadMethod
+  [29] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readBlockIntoBuffer
+  [30] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextAddress
+  [31] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.hasNext
+  [32] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor.onNewEventCommitted
+  [33] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor$$Lambda$352.200168363.run
+  [34] io.zeebe.util.sched.ActorJob.invoke
+  [35] io.zeebe.util.sched.ActorJob.execute
+  [36] io.zeebe.util.sched.ActorTask.execute
+  [37] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [38] io.zeebe.util.sched.ActorThread.doWork
+  [39] io.zeebe.util.sched.ActorThread.run
+
+--- 1000016 misses (1.09%), 1 sample
+  [ 0] _init
+  [ 1] rocksdb::WriteBatch::Put(rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::Slice const&)
+  [ 2] rocksdb::WriteBatchWithIndex::Put(rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::Slice const&)
+  [ 3] rocksdb::TransactionBaseImpl::Put(rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::Slice const&, bool)
+  [ 4] std::_Function_handler<rocksdb::Status (rocksdb::Slice const&, rocksdb::Slice const&), std::_Bind<rocksdb::Status (rocksdb::Transaction::*(rocksdb::Transaction*, rocksdb::ColumnFamilyHandle*, std::_Placeholder<1>, std::_Placeholder<2>, unsigned char))(rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::Slice const&, bool)> >::_M_invoke(std::_Any_data const&, rocksdb::Slice const&, rocksdb::Slice const&)
+  [ 5] txn_write_kv_helper(JNIEnv_*, std::function<rocksdb::Status (rocksdb::Slice const&, rocksdb::Slice const&)> const&, _jbyteArray* const&, int const&, _jbyteArray* const&, int const&)
+  [ 6] Java_org_rocksdb_Transaction_put__J_3BI_3BIJZ
+  [ 7] org.rocksdb.Transaction.put
+  [ 8] jdk.internal.reflect.GeneratedMethodAccessor22.invoke
+  [ 9] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [10] java.lang.reflect.Method.invoke
+  [11] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.put
+  [12] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$put$0
+  [13] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$425.436601887.run
+  [14] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [15] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [16] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [18] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.put
+  [19] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.put
+  [20] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.put
+  [21] io.zeebe.engine.state.instance.ElementInstanceState.writeElementInstance
+  [22] io.zeebe.engine.state.instance.ElementInstanceState.updateInstance
+  [23] io.zeebe.engine.state.instance.WorkflowEngineState.updateElementInstance
+  [24] io.zeebe.engine.state.instance.WorkflowEngineState.onElementInstanceEventProduced
+  [25] io.zeebe.engine.state.instance.WorkflowEngineState.onEventProduced
+  [26] io.zeebe.engine.processor.workflow.EventOutput.appendFollowUpEvent
+  [27] io.zeebe.engine.processor.workflow.EventOutput.appendFollowUpEvent
+  [28] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.transitionTo
+  [29] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.transitionToNext
+  [30] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [31] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [32] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [33] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [34] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [35] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [36] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [37] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [38] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [39] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [40] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [41] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [42] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [43] io.zeebe.util.sched.ActorJob.invoke
+  [44] io.zeebe.util.sched.ActorJob.execute
+  [45] io.zeebe.util.sched.ActorTask.execute
+  [46] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [47] io.zeebe.util.sched.ActorThread.doWork
+  [48] io.zeebe.util.sched.ActorThread.run
+
+--- 1000014 misses (1.09%), 1 sample
+  [ 0] _IO_fdopen@@GLIBC_2.2.5
+  [ 1] rocksdb::CopyFile(rocksdb::Env*, std::string const&, std::string const&, unsigned long, bool)
+  [ 2] /tmp/librocksdbjni7175380705719042935.so
+  [ 3] rocksdb::CheckpointImpl::CreateCustomCheckpoint(rocksdb::DBOptions const&, std::function<rocksdb::Status (std::string const&, std::string const&, rocksdb::FileType)>, std::function<rocksdb::Status (std::string const&, std::string const&, unsigned long, rocksdb::FileType)>, std::function<rocksdb::Status (std::string const&, std::string const&, rocksdb::FileType)>, unsigned long*, unsigned long)
+  [ 4] rocksdb::CheckpointImpl::CreateCheckpoint(std::string const&, unsigned long)
+  [ 5] Java_org_rocksdb_Checkpoint_createCheckpoint
+  [ 6] org.rocksdb.Checkpoint.createCheckpoint
+  [ 7] org.rocksdb.Checkpoint.createCheckpoint
+  [ 8] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.createSnapshot
+  [ 9] io.zeebe.logstreams.state.StateSnapshotController.createSnapshot
+  [10] io.zeebe.logstreams.state.StateSnapshotController$$Lambda$530.29013943.accept
+  [11] java.util.Optional.ifPresent
+  [12] io.zeebe.logstreams.state.StateSnapshotController.takeTempSnapshot
+  [13] io.zeebe.logstreams.state.StateSnapshotController$MockitoMock$1144738258.takeTempSnapshot$accessor$O6rltb8u
+  [14] io.zeebe.logstreams.state.StateSnapshotController$MockitoMock$1144738258$auxiliary$dqAq1bWG.call
+  [15] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [16] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [17] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [18] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [19] org.mockito.Answers.answer
+  [20] org.mockito.internal.handler.MockHandlerImpl.handle
+  [21] org.mockito.internal.handler.NullResultGuardian.handle
+  [22] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [23] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [24] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [25] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [26] io.zeebe.logstreams.state.StateSnapshotController$MockitoMock$1144738258.takeTempSnapshot
+  [27] io.zeebe.engine.processor.AsyncSnapshotDirector.lambda$takeSnapshot$6
+  [28] io.zeebe.engine.processor.AsyncSnapshotDirector$$Lambda$528.1830883308.accept
+  [29] io.zeebe.util.sched.future.FutureContinuationRunnable.run
+  [30] io.zeebe.util.sched.ActorJob.invoke
+  [31] io.zeebe.util.sched.ActorJob.execute
+  [32] io.zeebe.util.sched.ActorTask.execute
+  [33] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [34] io.zeebe.util.sched.ActorThread.doWork
+  [35] io.zeebe.util.sched.ActorThread.run
+
+--- 1000013 misses (1.09%), 1 sample
+  [ 0] io.zeebe.util.sched.ActorThread.doWork
+  [ 1] io.zeebe.util.sched.ActorThread.run
+
+--- 1000008 misses (1.09%), 1 sample
+  [ 0] tcp_v4_do_rcv_[k]
+  [ 1] tcp_v4_rcv_[k]
+  [ 2] ip_protocol_deliver_rcu_[k]
+  [ 3] ip_local_deliver_finish_[k]
+  [ 4] ip_local_deliver_[k]
+  [ 5] ip_rcv_[k]
+  [ 6] __netif_receive_skb_one_core_[k]
+  [ 7] process_backlog_[k]
+  [ 8] net_rx_action_[k]
+  [ 9] __softirqentry_text_start_[k]
+  [10] do_softirq_own_stack_[k]
+  [11] do_softirq.part.0_[k]
+  [12] __local_bh_enable_ip_[k]
+  [13] ip_finish_output2_[k]
+  [14] ip_output_[k]
+  [15] __ip_queue_xmit_[k]
+  [16] __tcp_transmit_skb_[k]
+  [17] tcp_write_xmit_[k]
+  [18] __tcp_push_pending_frames_[k]
+  [19] tcp_sendmsg_locked_[k]
+  [20] tcp_sendmsg_[k]
+  [21] sock_sendmsg_[k]
+  [22] __sys_sendto_[k]
+  [23] __x64_sys_sendto_[k]
+  [24] do_syscall_64_[k]
+  [25] entry_SYSCALL_64_after_hwframe_[k]
+  [26] __GI___send
+  [27] java.net.SocketOutputStream.socketWrite0
+  [28] java.net.SocketOutputStream.socketWrite
+  [29] java.net.SocketOutputStream.write
+  [30] java.io.BufferedOutputStream.flushBuffer
+  [31] java.io.BufferedOutputStream.flush
+  [32] java.io.ObjectOutputStream$BlockDataOutputStream.flush
+  [33] java.io.ObjectOutputStream.flush
+  [34] sun.rmi.transport.StreamRemoteCall.releaseOutputStream
+  [35] sun.rmi.server.UnicastServerRef.dispatch
+  [36] sun.rmi.transport.Transport$1.run
+  [37] sun.rmi.transport.Transport$1.run
+  [38] java.security.AccessController.doPrivileged
+  [39] sun.rmi.transport.Transport.serviceCall
+  [40] sun.rmi.transport.tcp.TCPTransport.handleMessages
+  [41] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0
+  [42] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0
+  [43] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$$Lambda$508.7328211.run
+  [44] java.security.AccessController.doPrivileged
+  [45] sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run
+  [46] java.util.concurrent.ThreadPoolExecutor.runWorker
+  [47] java.util.concurrent.ThreadPoolExecutor$Worker.run
+  [48] java.lang.Thread.run
+
+--- 1000007 misses (1.09%), 1 sample
+  [ 0] io.zeebe.msgpack.property.BaseProperty.getEncodedLength
+  [ 1] io.zeebe.msgpack.value.ObjectValue.getEncodedLength
+  [ 2] io.zeebe.msgpack.value.ObjectValue.getEncodedLength
+  [ 3] io.zeebe.msgpack.UnpackedObject.getLength
+  [ 4] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 5] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 6] io.zeebe.engine.processor.workflow.BpmnStepContext.getFlowScopeInstance
+  [ 7] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isElementInterrupted
+  [ 8] io.zeebe.engine.processor.workflow.handlers.element.ElementActivatingHandler.shouldHandleState
+  [ 9] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [10] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [11] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [12] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [13] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [14] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [15] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [16] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [17] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [20] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [21] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [22] io.zeebe.util.sched.ActorJob.invoke
+  [23] io.zeebe.util.sched.ActorJob.execute
+  [24] io.zeebe.util.sched.ActorTask.execute
+  [25] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [26] io.zeebe.util.sched.ActorThread.doWork
+  [27] io.zeebe.util.sched.ActorThread.run
+
+--- 1000006 misses (1.09%), 1 sample
+  [ 0] org.agrona.concurrent.UnsafeBuffer.boundsCheck
+  [ 1] org.agrona.concurrent.UnsafeBuffer.putByte
+  [ 2] io.zeebe.msgpack.spec.MsgPackWriter.writeMapHeader
+  [ 3] io.zeebe.msgpack.value.ObjectValue.write
+  [ 4] io.zeebe.msgpack.UnpackedObject.write
+  [ 5] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 6] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 7] io.zeebe.engine.processor.workflow.BpmnStepContext.getFlowScopeInstance
+  [ 8] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isElementInterrupted
+  [ 9] io.zeebe.engine.processor.workflow.handlers.element.ElementActivatingHandler.shouldHandleState
+  [10] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [11] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [12] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [13] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [14] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [16] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [20] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [22] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [23] io.zeebe.util.sched.ActorJob.invoke
+  [24] io.zeebe.util.sched.ActorJob.execute
+  [25] io.zeebe.util.sched.ActorTask.execute
+  [26] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [27] io.zeebe.util.sched.ActorThread.doWork
+  [28] io.zeebe.util.sched.ActorThread.run
+
+--- 1000004 misses (1.09%), 1 sample
+  [ 0] java.lang.StackTraceElement.of
+  [ 1] java.lang.Throwable.getOurStackTrace
+  [ 2] java.lang.Throwable.getStackTrace
+  [ 3] org.mockito.internal.exceptions.stacktrace.StackTraceFilter.filterFirst
+  [ 4] org.mockito.internal.debugging.LocationImpl.computeStackTraceInformation
+  [ 5] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 6] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 7] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 8] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 9] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [10] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [11] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [12] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [13] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [14] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [15] io.zeebe.util.sched.ActorJob.invoke
+  [16] io.zeebe.util.sched.ActorJob.execute
+  [17] io.zeebe.util.sched.ActorTask.execute
+  [18] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [19] io.zeebe.util.sched.ActorThread.doWork
+  [20] io.zeebe.util.sched.ActorThread.run
+
+--- 1000002 misses (1.09%), 1 sample
+  [ 0] io.zeebe.msgpack.property.LongProperty.<init>
+  [ 1] io.zeebe.protocol.impl.record.value.workflowinstance.WorkflowInstanceRecord.<init>
+  [ 2] io.zeebe.engine.state.instance.IndexedRecord.<init>
+  [ 3] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [ 4] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 5] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 6] io.zeebe.engine.state.instance.WorkflowEngineState.createNewElementInstance
+  [ 7] io.zeebe.engine.state.instance.WorkflowEngineState.onElementInstanceEventProduced
+  [ 8] io.zeebe.engine.state.instance.WorkflowEngineState.onEventProduced
+  [ 9] io.zeebe.engine.processor.workflow.EventOutput.appendNewEvent
+  [10] io.zeebe.engine.processor.workflow.EventOutput.appendNewEvent
+  [11] io.zeebe.engine.processor.workflow.handlers.container.ContainerElementActivatedHandler.activateStartEvent
+  [12] io.zeebe.engine.processor.workflow.handlers.container.ContainerElementActivatedHandler.handleState
+  [13] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [14] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [15] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [16] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [17] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [19] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [20] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [22] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [23] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [24] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [25] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [26] io.zeebe.util.sched.ActorJob.invoke
+  [27] io.zeebe.util.sched.ActorJob.execute
+  [28] io.zeebe.util.sched.ActorTask.execute
+  [29] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [30] io.zeebe.util.sched.ActorThread.doWork
+  [31] io.zeebe.util.sched.ActorThread.run
+
+--- 999999 misses (1.09%), 1 sample
+  [ 0] rocksdb::InlineSkipList<rocksdb::MemTableRep::KeyComparator const&>::FindGreaterOrEqual(char const*) const
+  [ 1] /tmp/librocksdbjni7175380705719042935.so
+  [ 2] rocksdb::MemTable::Get(rocksdb::LookupKey const&, std::string*, rocksdb::Status*, rocksdb::MergeContext*, unsigned long*, unsigned long*, rocksdb::ReadOptions const&, rocksdb::ReadCallback*, bool*, bool)
+  [ 3] rocksdb::DBImpl::GetImpl(rocksdb::ReadOptions const&, rocksdb::Slice const&, rocksdb::DBImpl::GetImplOptions)
+  [ 4] rocksdb::DBImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 5] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*, rocksdb::ReadCallback*)
+  [ 6] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 7] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 8] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)
+  [ 9] std::_Function_handler<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*), std::_Bind<rocksdb::Status (rocksdb::Transaction::*(rocksdb::Transaction*, std::_Placeholder<1>, rocksdb::ColumnFamilyHandle*, std::_Placeholder<2>, std::_Placeholder<3>))(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)> >::_M_invoke(std::_Any_data const&, rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*&&)
+  [10] txn_get_helper(JNIEnv_*, std::function<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*)> const&, long const&, _jbyteArray* const&, int const&)
+  [11] Java_org_rocksdb_Transaction_get__JJ_3BIJ
+  [12] org.rocksdb.Transaction.get
+  [13] jdk.internal.reflect.GeneratedMethodAccessor23.invoke
+  [14] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [15] java.lang.reflect.Method.invoke
+  [16] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.get
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$getValue$2
+  [18] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$302.892005505.run
+  [19] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [20] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [21] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [22] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [23] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.getValue
+  [24] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.get
+  [25] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [26] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [27] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [28] io.zeebe.engine.state.NextValueManager.getNextValue
+  [29] io.zeebe.engine.state.KeyState.nextKey
+  [30] io.zeebe.engine.processor.workflow.instance.CreateWorkflowInstanceProcessor.onCommand
+  [31] io.zeebe.engine.processor.CommandProcessorImpl.processRecord
+  [32] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [33] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [34] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [35] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [36] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [37] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [38] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [39] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [40] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [41] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [42] io.zeebe.util.sched.ActorJob.invoke
+  [43] io.zeebe.util.sched.ActorJob.execute
+  [44] io.zeebe.util.sched.ActorTask.execute
+  [45] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [46] io.zeebe.util.sched.ActorThread.doWork
+  [47] io.zeebe.util.sched.ActorThread.run
+
+--- 999996 misses (1.09%), 1 sample
+  [ 0] _init
+  [ 1] rocksdb::MemTable::KeyComparator::operator()(char const*, rocksdb::Slice const&) const
+  [ 2] rocksdb::InlineSkipList<rocksdb::MemTableRep::KeyComparator const&>::FindGreaterOrEqual(char const*) const
+  [ 3] /tmp/librocksdbjni7175380705719042935.so
+  [ 4] rocksdb::MemTable::Get(rocksdb::LookupKey const&, std::string*, rocksdb::Status*, rocksdb::MergeContext*, unsigned long*, unsigned long*, rocksdb::ReadOptions const&, rocksdb::ReadCallback*, bool*, bool)
+  [ 5] rocksdb::DBImpl::GetImpl(rocksdb::ReadOptions const&, rocksdb::Slice const&, rocksdb::DBImpl::GetImplOptions)
+  [ 6] rocksdb::DBImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 7] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*, rocksdb::ReadCallback*)
+  [ 8] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 9] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [10] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)
+  [11] std::_Function_handler<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*), std::_Bind<rocksdb::Status (rocksdb::Transaction::*(rocksdb::Transaction*, std::_Placeholder<1>, rocksdb::ColumnFamilyHandle*, std::_Placeholder<2>, std::_Placeholder<3>))(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)> >::_M_invoke(std::_Any_data const&, rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*&&)
+  [12] txn_get_helper(JNIEnv_*, std::function<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*)> const&, long const&, _jbyteArray* const&, int const&)
+  [13] Java_org_rocksdb_Transaction_get__JJ_3BIJ
+  [14] org.rocksdb.Transaction.get
+  [15] jdk.internal.reflect.GeneratedMethodAccessor23.invoke
+  [16] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [17] java.lang.reflect.Method.invoke
+  [18] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.get
+  [19] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$getValue$2
+  [20] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$302.892005505.run
+  [21] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [22] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [23] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [24] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [25] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.getValue
+  [26] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.get
+  [27] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [28] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [29] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [30] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [31] io.zeebe.engine.processor.workflow.BpmnStepContext.getElementInstance
+  [32] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isStateSameAsElementState
+  [33] io.zeebe.engine.processor.workflow.handlers.element.ElementActivatedHandler.shouldHandleState
+  [34] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [35] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [36] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [37] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [38] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [39] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [40] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [41] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [42] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [43] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [44] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [45] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [46] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [47] io.zeebe.util.sched.ActorJob.invoke
+  [48] io.zeebe.util.sched.ActorJob.execute
+  [49] io.zeebe.util.sched.ActorTask.execute
+  [50] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [51] io.zeebe.util.sched.ActorThread.doWork
+  [52] io.zeebe.util.sched.ActorThread.run
+
+--- 999994 misses (1.09%), 1 sample
+  [ 0] java.util.AbstractList.listIterator
+  [ 1] java.util.AbstractList.listIterator
+  [ 2] java.util.AbstractList.equals
+  [ 3] java.util.concurrent.ConcurrentHashMap.get
+  [ 4] io.prometheus.client.SimpleCollector.labels
+  [ 5] io.zeebe.logstreams.impl.backpressure.AppendBackpressureMetrics.newEntryToAppend
+  [ 6] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [ 7] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [ 8] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [ 9] io.zeebe.util.sched.ActorJob.invoke
+  [10] io.zeebe.util.sched.ActorJob.execute
+  [11] io.zeebe.util.sched.ActorTask.execute
+  [12] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [13] io.zeebe.util.sched.ActorThread.doWork
+  [14] io.zeebe.util.sched.ActorThread.run
+
+--- 999991 misses (1.09%), 1 sample
+  [ 0] __memset_avx2_erms
+  [ 1] jdk.internal.misc.Unsafe.setMemory0
+  [ 2] jdk.internal.misc.Unsafe.setMemory
+  [ 3] sun.misc.Unsafe.setMemory
+  [ 4] org.agrona.concurrent.UnsafeBuffer.setMemory
+  [ 5] io.zeebe.dispatcher.impl.log.LogBufferPartition.clean
+  [ 6] io.zeebe.dispatcher.impl.log.LogBuffer.cleanPartitions
+  [ 7] io.zeebe.dispatcher.Dispatcher.runBackgroundTask
+  [ 8] io.zeebe.dispatcher.Dispatcher$$Lambda$167.631159498.run
+  [ 9] io.zeebe.util.sched.ActorJob.invoke
+  [10] io.zeebe.util.sched.ActorJob.execute
+  [11] io.zeebe.util.sched.ActorTask.execute
+  [12] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [13] io.zeebe.util.sched.ActorThread.doWork
+  [14] io.zeebe.util.sched.ActorThread.run
+
+--- 999986 misses (1.09%), 1 sample
+  [ 0] rocksdb::WriteThread::ExitAsBatchGroupLeader(rocksdb::WriteThread::WriteGroup&, rocksdb::Status)
+  [ 1] rocksdb::DBImpl::WriteImpl(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*, unsigned long*, unsigned long, bool, unsigned long*, unsigned long, rocksdb::PreReleaseCallback*)
+  [ 2] rocksdb::DBImpl::WriteWithCallback(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*)
+  [ 3] rocksdb::OptimisticTransaction::Commit()
+  [ 4] Java_org_rocksdb_Transaction_commit
+  [ 5] org.rocksdb.Transaction.commit
+  [ 6] org.rocksdb.Transaction.commit
+  [ 7] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commitInternal
+  [ 8] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commit
+  [ 9] io.zeebe.engine.processor.ProcessingStateMachine.lambda$updateState$9
+  [10] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$444.978940892.run
+  [11] io.zeebe.util.retry.ActorRetryMechanism.run
+  [12] io.zeebe.util.retry.RecoverableRetryStrategy.run
+  [13] io.zeebe.util.retry.RecoverableRetryStrategy$$Lambda$445.758568844.run
+  [14] io.zeebe.util.sched.ActorJob.invoke
+  [15] io.zeebe.util.sched.ActorJob.execute
+  [16] io.zeebe.util.sched.ActorTask.execute
+  [17] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [18] io.zeebe.util.sched.ActorThread.doWork
+  [19] io.zeebe.util.sched.ActorThread.run
+
+--- 999982 misses (1.09%), 1 sample
+  [ 0] gettimeofday
+  [ 1] io.zeebe.util.sched.WorkStealingGroup.getNextTask
+  [ 2] io.zeebe.util.sched.MultiLevelWorkstealingGroup.getNextTask
+  [ 3] io.zeebe.util.sched.IoScheduler.getNextTask
+  [ 4] io.zeebe.util.sched.ActorThread.doWork
+  [ 5] io.zeebe.util.sched.ActorThread.run
+
+--- 999981 misses (1.09%), 1 sample
+  [ 0] java.util.concurrent.ConcurrentSkipListMap.findFirstEntry
+  [ 1] java.util.concurrent.ConcurrentSkipListMap.firstEntry
+  [ 2] io.atomix.storage.journal.SegmentedJournal.getFirstSegment
+  [ 3] io.atomix.storage.journal.SegmentedJournalReader.getFirstIndex
+  [ 4] io.atomix.storage.journal.DelegatingJournalReader.getFirstIndex
+  [ 5] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.read
+  [ 6] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.lambda$readBlockIntoBuffer$1
+  [ 7] io.zeebe.logstreams.impl.log.LogStreamReaderImpl$$Lambda$383.1923772135.applyAsLong
+  [ 8] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.executeReadMethod
+  [ 9] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readBlockIntoBuffer
+  [10] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextAddress
+  [11] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextEvent
+  [12] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [13] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [14] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [16] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [17] io.zeebe.util.sched.ActorJob.invoke
+  [18] io.zeebe.util.sched.ActorJob.execute
+  [19] io.zeebe.util.sched.ActorTask.execute
+  [20] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [21] io.zeebe.util.sched.ActorThread.doWork
+  [22] io.zeebe.util.sched.ActorThread.run
+
+--- 999975 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] /usr/lib/jvm/java-11-openjdk/lib/libjava.so
+  [ 4] java.lang.Throwable.fillInStackTrace
+  [ 5] java.lang.Throwable.fillInStackTrace
+  [ 6] java.lang.Throwable.<init>
+  [ 7] org.mockito.internal.debugging.LocationImpl.<init>
+  [ 8] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [ 9] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [10] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [11] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [12] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [13] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [14] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [15] io.zeebe.util.sched.ActorJob.invoke
+  [16] io.zeebe.util.sched.ActorJob.execute
+  [17] io.zeebe.util.sched.ActorTask.execute
+  [18] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [19] io.zeebe.util.sched.ActorThread.doWork
+  [20] io.zeebe.util.sched.ActorThread.run
+
+--- 999973 misses (1.09%), 1 sample
+  [ 0] org.agrona.concurrent.UnsafeBuffer.wrap
+  [ 1] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [ 2] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.next
+  [ 3] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor.onNewEventCommitted
+  [ 4] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor$$Lambda$352.200168363.run
+  [ 5] io.zeebe.util.sched.ActorJob.invoke
+  [ 6] io.zeebe.util.sched.ActorJob.execute
+  [ 7] io.zeebe.util.sched.ActorTask.execute
+  [ 8] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [ 9] io.zeebe.util.sched.ActorThread.doWork
+  [10] io.zeebe.util.sched.ActorThread.run
+
+--- 999972 misses (1.09%), 1 sample
+  [ 0] rocksdb::GetColumnFamilyID(rocksdb::ColumnFamilyHandle*)
+  [ 1] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*, rocksdb::ReadCallback*)
+  [ 2] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 3] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 4] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)
+  [ 5] std::_Function_handler<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*), std::_Bind<rocksdb::Status (rocksdb::Transaction::*(rocksdb::Transaction*, std::_Placeholder<1>, rocksdb::ColumnFamilyHandle*, std::_Placeholder<2>, std::_Placeholder<3>))(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)> >::_M_invoke(std::_Any_data const&, rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*&&)
+  [ 6] txn_get_helper(JNIEnv_*, std::function<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*)> const&, long const&, _jbyteArray* const&, int const&)
+  [ 7] Java_org_rocksdb_Transaction_get__JJ_3BIJ
+  [ 8] org.rocksdb.Transaction.get
+  [ 9] jdk.internal.reflect.GeneratedMethodAccessor23.invoke
+  [10] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [11] java.lang.reflect.Method.invoke
+  [12] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.get
+  [13] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$getValue$2
+  [14] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$302.892005505.run
+  [15] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [16] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [17] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [18] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [19] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.getValue
+  [20] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$exists$3
+  [21] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$457.369334383.run
+  [22] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [23] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [24] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [25] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [26] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.exists
+  [27] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.exists
+  [28] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.exists
+  [29] io.zeebe.engine.state.BlackList.isOnBlacklist
+  [30] io.zeebe.engine.state.ZeebeState.isOnBlacklist
+  [31] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [32] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [33] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [34] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [35] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [36] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [37] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [38] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [39] io.zeebe.util.sched.ActorJob.invoke
+  [40] io.zeebe.util.sched.ActorJob.execute
+  [41] io.zeebe.util.sched.ActorTask.execute
+  [42] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [43] io.zeebe.util.sched.ActorThread.doWork
+  [44] io.zeebe.util.sched.ActorThread.run
+
+--- 999969 misses (1.09%), 1 sample
+  [ 0] io.zeebe.test.util.record.WorkflowInstanceRecordStream.lambda$withElementId$4
+  [ 1] io.zeebe.test.util.record.WorkflowInstanceRecordStream$$Lambda$522.965778714.test
+  [ 2] io.zeebe.test.util.record.ExporterRecordStream.lambda$valueFilter$0
+  [ 3] io.zeebe.test.util.record.ExporterRecordStream$$Lambda$521.2094770768.test
+  [ 4] java.util.stream.ReferencePipeline$2$1.accept
+  [ 5] java.util.stream.ReferencePipeline$3$1.accept
+  [ 6] java.util.stream.ReferencePipeline$2$1.accept
+  [ 7] java.util.Spliterators$IteratorSpliterator.tryAdvance
+  [ 8] java.util.stream.ReferencePipeline.forEachWithCancel
+  [ 9] java.util.stream.AbstractPipeline.copyIntoWithCancel
+  [10] java.util.stream.AbstractPipeline.copyInto
+  [11] java.util.stream.AbstractPipeline.wrapAndCopyInto
+  [12] java.util.stream.FindOps$FindOp.evaluateSequential
+  [13] java.util.stream.AbstractPipeline.evaluate
+  [14] java.util.stream.ReferencePipeline.findFirst
+  [15] io.zeebe.test.util.stream.StreamWrapper.findFirst
+  [16] io.zeebe.engine.processor.workflow.perf.PerfDeploymentTest.getStartTime
+  [17] io.zeebe.engine.processor.workflow.perf.PerfDeploymentTest.shouldCreateDeploymentWithBpmnXml
+  [18] jdk.internal.reflect.NativeMethodAccessorImpl.invoke0
+  [19] jdk.internal.reflect.NativeMethodAccessorImpl.invoke
+  [20] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [21] java.lang.reflect.Method.invoke
+  [22] org.junit.runners.model.FrameworkMethod$1.runReflectiveCall
+  [23] org.junit.internal.runners.model.ReflectiveCallable.run
+  [24] org.junit.runners.model.FrameworkMethod.invokeExplosively
+  [25] org.junit.internal.runners.statements.InvokeMethod.evaluate
+  [26] org.junit.internal.runners.statements.RunBefores.evaluate
+  [27] org.junit.internal.runners.statements.RunAfters.evaluate
+  [28] org.junit.rules.ExternalResource$1.evaluate
+  [29] org.junit.rules.TestWatcher$1.evaluate
+  [30] org.junit.rules.ExternalResource$1.evaluate
+  [31] org.junit.rules.ExternalResource$1.evaluate
+  [32] org.junit.rules.ExternalResource$1.evaluate
+  [33] org.junit.rules.ExternalResource$1.evaluate
+  [34] org.junit.rules.RunRules.evaluate
+  [35] org.junit.runners.ParentRunner$3.evaluate
+  [36] org.junit.runners.BlockJUnit4ClassRunner$1.evaluate
+  [37] org.junit.runners.ParentRunner.runLeaf
+  [38] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [39] org.junit.runners.BlockJUnit4ClassRunner.runChild
+  [40] org.junit.runners.ParentRunner$4.run
+  [41] org.junit.runners.ParentRunner$1.schedule
+  [42] org.junit.runners.ParentRunner.runChildren
+  [43] org.junit.runners.ParentRunner.access$100
+  [44] org.junit.runners.ParentRunner$2.evaluate
+  [45] org.junit.runners.ParentRunner.run
+  [46] org.junit.runners.Suite.runChild
+  [47] org.junit.runners.Suite.runChild
+  [48] org.junit.runners.ParentRunner$4.run
+  [49] org.junit.runners.ParentRunner$1.schedule
+  [50] org.junit.runners.ParentRunner.runChildren
+  [51] org.junit.runners.ParentRunner.access$100
+  [52] org.junit.runners.ParentRunner$2.evaluate
+  [53] org.junit.internal.runners.statements.RunBefores.evaluate
+  [54] org.junit.internal.runners.statements.RunAfters.evaluate
+  [55] org.junit.rules.ExternalResource$1.evaluate
+  [56] org.junit.rules.TestWatcher$1.evaluate
+  [57] org.junit.rules.ExternalResource$1.evaluate
+  [58] org.junit.rules.ExternalResource$1.evaluate
+  [59] org.junit.rules.ExternalResource$1.evaluate
+  [60] org.junit.rules.ExternalResource$1.evaluate
+  [61] org.junit.rules.RunRules.evaluate
+  [62] org.junit.rules.ExternalResource$1.evaluate
+  [63] org.junit.rules.RunRules.evaluate
+  [64] org.junit.rules.RunRules.evaluate
+  [65] org.junit.runners.ParentRunner$3.evaluate
+  [66] org.junit.runners.ParentRunner.run
+  [67] org.junit.runner.JUnitCore.run
+  [68] com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs
+  [69] com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs
+  [70] com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart
+  [71] com.intellij.rt.execution.junit.JUnitStarter.main
+
+--- 999969 misses (1.09%), 1 sample
+  [ 0] rocksdb::ThreadLocalPtr::StaticMeta::CompareAndSwap(unsigned int, void*, void*&)
+  [ 1] rocksdb::DBImpl::ReturnAndCleanupSuperVersion(rocksdb::ColumnFamilyData*, rocksdb::SuperVersion*)
+  [ 2] rocksdb::DBImpl::GetImpl(rocksdb::ReadOptions const&, rocksdb::Slice const&, rocksdb::DBImpl::GetImplOptions)
+  [ 3] rocksdb::DBImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 4] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*, rocksdb::ReadCallback*)
+  [ 5] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 6] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 7] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)
+  [ 8] std::_Function_handler<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*), std::_Bind<rocksdb::Status (rocksdb::Transaction::*(rocksdb::Transaction*, std::_Placeholder<1>, rocksdb::ColumnFamilyHandle*, std::_Placeholder<2>, std::_Placeholder<3>))(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)> >::_M_invoke(std::_Any_data const&, rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*&&)
+  [ 9] txn_get_helper(JNIEnv_*, std::function<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*)> const&, long const&, _jbyteArray* const&, int const&)
+  [10] Java_org_rocksdb_Transaction_get__JJ_3BIJ
+  [11] org.rocksdb.Transaction.get
+  [12] jdk.internal.reflect.GeneratedMethodAccessor23.invoke
+  [13] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [14] java.lang.reflect.Method.invoke
+  [15] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.get
+  [16] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$getValue$2
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$302.892005505.run
+  [18] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [19] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [20] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [21] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [22] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.getValue
+  [23] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.get
+  [24] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [25] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [26] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [27] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [28] io.zeebe.engine.state.instance.WorkflowEngineState.updateElementInstance
+  [29] io.zeebe.engine.state.instance.WorkflowEngineState.onElementInstanceEventProduced
+  [30] io.zeebe.engine.state.instance.WorkflowEngineState.onEventProduced
+  [31] io.zeebe.engine.processor.workflow.EventOutput.appendFollowUpEvent
+  [32] io.zeebe.engine.processor.workflow.EventOutput.appendFollowUpEvent
+  [33] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.transitionTo
+  [34] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.transitionToNext
+  [35] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [36] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [37] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [38] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [39] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [40] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [41] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [42] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [43] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [44] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [45] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [46] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [47] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [48] io.zeebe.util.sched.ActorJob.invoke
+  [49] io.zeebe.util.sched.ActorJob.execute
+  [50] io.zeebe.util.sched.ActorTask.execute
+  [51] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [52] io.zeebe.util.sched.ActorThread.doWork
+  [53] io.zeebe.util.sched.ActorThread.run
+
+--- 999969 misses (1.09%), 1 sample
+  [ 0] io.zeebe.msgpack.property.StringProperty.getValue
+  [ 1] io.zeebe.engine.state.deployment.PersistedWorkflow.getBpmnProcessId
+  [ 2] io.zeebe.engine.state.deployment.DeployedWorkflow.getBpmnProcessId
+  [ 3] io.zeebe.engine.processor.workflow.instance.CreateWorkflowInstanceProcessor.createElementInstance
+  [ 4] io.zeebe.engine.processor.workflow.instance.CreateWorkflowInstanceProcessor.onCommand
+  [ 5] io.zeebe.engine.processor.CommandProcessorImpl.processRecord
+  [ 6] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [ 7] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [ 8] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [ 9] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [10] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [12] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [13] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [14] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [15] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [16] io.zeebe.util.sched.ActorJob.invoke
+  [17] io.zeebe.util.sched.ActorJob.execute
+  [18] io.zeebe.util.sched.ActorTask.execute
+  [19] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [20] io.zeebe.util.sched.ActorThread.doWork
+  [21] io.zeebe.util.sched.ActorThread.run
+
+--- 999961 misses (1.09%), 1 sample
+  [ 0] rocksdb::log::Writer::AddRecord(rocksdb::Slice const&)
+  [ 1] rocksdb::DBImpl::WriteToWAL(rocksdb::WriteBatch const&, rocksdb::log::Writer*, unsigned long*, unsigned long*)
+  [ 2] rocksdb::DBImpl::WriteToWAL(rocksdb::WriteThread::WriteGroup const&, rocksdb::log::Writer*, unsigned long*, bool, bool, unsigned long)
+  [ 3] rocksdb::DBImpl::WriteImpl(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*, unsigned long*, unsigned long, bool, unsigned long*, unsigned long, rocksdb::PreReleaseCallback*)
+  [ 4] rocksdb::DBImpl::WriteWithCallback(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*)
+  [ 5] rocksdb::OptimisticTransaction::Commit()
+  [ 6] Java_org_rocksdb_Transaction_commit
+  [ 7] org.rocksdb.Transaction.commit
+  [ 8] org.rocksdb.Transaction.commit
+  [ 9] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commitInternal
+  [10] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commit
+  [11] io.zeebe.engine.processor.ProcessingStateMachine.lambda$updateState$9
+  [12] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$444.978940892.run
+  [13] io.zeebe.util.retry.ActorRetryMechanism.run
+  [14] io.zeebe.util.retry.RecoverableRetryStrategy.run
+  [15] io.zeebe.util.retry.RecoverableRetryStrategy$$Lambda$445.758568844.run
+  [16] io.zeebe.util.sched.ActorJob.invoke
+  [17] io.zeebe.util.sched.ActorJob.execute
+  [18] io.zeebe.util.sched.ActorTask.execute
+  [19] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [20] io.zeebe.util.sched.ActorThread.doWork
+  [21] io.zeebe.util.sched.ActorThread.run
+
+--- 999960 misses (1.09%), 1 sample
+  [ 0] itable stub
+  [ 1] io.zeebe.util.sched.ActorJob.invoke
+  [ 2] io.zeebe.util.sched.ActorJob.execute
+  [ 3] io.zeebe.util.sched.ActorTask.execute
+  [ 4] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [ 5] io.zeebe.util.sched.ActorThread.doWork
+  [ 6] io.zeebe.util.sched.ActorThread.run
+
+--- 999959 misses (1.09%), 1 sample
+  [ 0] io_schedule_prepare_[k]
+  [ 1] io_schedule_[k]
+  [ 2] wait_on_page_bit_[k]
+  [ 3] __filemap_fdatawait_range_[k]
+  [ 4] file_write_and_wait_range_[k]
+  [ 5] ext4_sync_file?[ext4]_[k]
+  [ 6] do_fsync_[k]
+  [ 7] __x64_sys_fsync_[k]
+  [ 8] do_syscall_64_[k]
+  [ 9] entry_SYSCALL_64_after_hwframe_[k]
+  [10] fsync
+  [11] sun.nio.ch.FileDispatcherImpl.force0
+  [12] sun.nio.ch.FileDispatcherImpl.force
+  [13] sun.nio.ch.FileChannelImpl.force
+  [14] io.atomix.storage.journal.FileChannelJournalSegmentWriter.flush
+  [15] io.atomix.storage.journal.MappableJournalSegmentWriter.flush
+  [16] io.atomix.storage.journal.SegmentedJournalWriter$$Lambda$378.43919892.run
+  [17] io.prometheus.client.Histogram$Child.time
+  [18] io.atomix.storage.statistics.JournalMetrics.observeSegmentFlush
+  [19] io.atomix.storage.journal.SegmentedJournalWriter.flush
+  [20] io.atomix.storage.journal.SegmentedJournalWriter.commit
+  [21] io.atomix.storage.journal.DelegatingJournalWriter.commit
+  [22] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [23] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [24] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [25] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [26] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [27] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [28] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [29] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [30] org.mockito.Answers.answer
+  [31] org.mockito.internal.handler.MockHandlerImpl.handle
+  [32] org.mockito.internal.handler.NullResultGuardian.handle
+  [33] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [34] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [35] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [36] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [37] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [38] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [39] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [40] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [41] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [42] io.zeebe.util.sched.ActorJob.invoke
+  [43] io.zeebe.util.sched.ActorJob.execute
+  [44] io.zeebe.util.sched.ActorTask.execute
+  [45] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [46] io.zeebe.util.sched.ActorThread.doWork
+  [47] io.zeebe.util.sched.ActorThread.run
+
+--- 999953 misses (1.09%), 1 sample
+  [ 0] java.util.Objects.equals
+  [ 1] io.zeebe.msgpack.value.StringValue.equals
+  [ 2] io.zeebe.msgpack.value.ObjectValue.read
+  [ 3] io.zeebe.msgpack.property.BaseProperty.read
+  [ 4] io.zeebe.msgpack.value.ObjectValue.read
+  [ 5] io.zeebe.msgpack.UnpackedObject.wrap
+  [ 6] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [ 7] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [ 8] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [ 9] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [10] io.zeebe.engine.processor.workflow.BpmnStepContext.getElementInstance
+  [11] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isStateSameAsElementState
+  [12] io.zeebe.engine.processor.workflow.handlers.element.ElementCompletedHandler.shouldHandleState
+  [13] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [14] io.zeebe.engine.processor.workflow.handlers.AbstractTerminalStateHandler.handle
+  [15] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [16] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [17] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [18] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [20] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [21] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [22] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [23] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [24] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [25] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [26] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [27] io.zeebe.util.sched.ActorJob.invoke
+  [28] io.zeebe.util.sched.ActorJob.execute
+  [29] io.zeebe.util.sched.ActorTask.execute
+  [30] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [31] io.zeebe.util.sched.ActorThread.doWork
+  [32] io.zeebe.util.sched.ActorThread.run
+
+--- 999944 misses (1.09%), 1 sample
+  [ 0] io.zeebe.msgpack.property.StringProperty.<init>
+  [ 1] io.zeebe.protocol.impl.record.value.workflowinstance.WorkflowInstanceRecord.<init>
+  [ 2] io.zeebe.engine.state.instance.IndexedRecord.<init>
+  [ 3] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [ 4] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 5] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 6] io.zeebe.engine.processor.workflow.BpmnStepContext.getElementInstance
+  [ 7] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isStateSameAsElementState
+  [ 8] io.zeebe.engine.processor.workflow.handlers.element.ElementCompletedHandler.shouldHandleState
+  [ 9] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [10] io.zeebe.engine.processor.workflow.handlers.AbstractTerminalStateHandler.handle
+  [11] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [12] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [13] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [14] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [16] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [20] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [22] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [23] io.zeebe.util.sched.ActorJob.invoke
+  [24] io.zeebe.util.sched.ActorJob.execute
+  [25] io.zeebe.util.sched.ActorTask.execute
+  [26] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [27] io.zeebe.util.sched.ActorThread.doWork
+  [28] io.zeebe.util.sched.ActorThread.run
+
+--- 999939 misses (1.09%), 1 sample
+  [ 0] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 1] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 2] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 3] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 4] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+  [ 5] /usr/lib/jvm/java-11-openjdk/lib/server/libjvm.so
+
+--- 999937 misses (1.09%), 1 sample
+  [ 0] io.zeebe.db.impl.DbCompositeKey.getLength
+  [ 1] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$put$0
+  [ 2] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$425.436601887.run
+  [ 3] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [ 4] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [ 5] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [ 6] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [ 7] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.put
+  [ 8] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.put
+  [ 9] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.put
+  [10] io.zeebe.engine.state.instance.ElementInstanceState.writeElementInstance
+  [11] io.zeebe.engine.state.instance.ElementInstanceState.updateInstance
+  [12] io.zeebe.engine.state.instance.ElementInstanceState.newInstance
+  [13] io.zeebe.engine.state.instance.WorkflowEngineState.createNewElementInstance
+  [14] io.zeebe.engine.state.instance.WorkflowEngineState.onElementInstanceEventProduced
+  [15] io.zeebe.engine.state.instance.WorkflowEngineState.onEventProduced
+  [16] io.zeebe.engine.processor.workflow.EventOutput.appendNewEvent
+  [17] io.zeebe.engine.processor.workflow.handlers.seqflow.SequenceFlowTakenHandler.handleState
+  [18] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [19] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [20] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [21] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [22] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [23] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [24] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [25] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [26] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [27] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [28] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [29] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [30] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [31] io.zeebe.util.sched.ActorJob.invoke
+  [32] io.zeebe.util.sched.ActorJob.execute
+  [33] io.zeebe.util.sched.ActorTask.execute
+  [34] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [35] io.zeebe.util.sched.ActorThread.doWork
+  [36] io.zeebe.util.sched.ActorThread.run
+
+--- 999926 misses (1.09%), 1 sample
+  [ 0] rocksdb::ThreadLocalPtr::StaticMeta::Swap(unsigned int, void*)
+  [ 1] rocksdb::ColumnFamilyData::GetThreadLocalSuperVersion(rocksdb::InstrumentedMutex*)
+  [ 2] rocksdb::TransactionUtil::CheckKeysForConflicts(rocksdb::DBImpl*, std::unordered_map<unsigned int, std::unordered_map<std::string, rocksdb::TransactionKeyMapInfo, std::hash<std::string>, std::equal_to<std::string>, std::allocator<std::pair<std::string const, rocksdb::TransactionKeyMapInfo> > >, std::hash<unsigned int>, std::equal_to<unsigned int>, std::allocator<std::pair<unsigned int const, std::unordered_map<std::string, rocksdb::TransactionKeyMapInfo, std::hash<std::string>, std::equal_to<std::string>, std::allocator<std::pair<std::string const, rocksdb::TransactionKeyMapInfo> > > > > > const&, bool)
+  [ 3] rocksdb::OptimisticTransaction::CheckTransactionForConflicts(rocksdb::DB*)
+  [ 4] rocksdb::OptimisticTransactionCallback::Callback(rocksdb::DB*)
+  [ 5] rocksdb::DBImpl::WriteImpl(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*, unsigned long*, unsigned long, bool, unsigned long*, unsigned long, rocksdb::PreReleaseCallback*)
+  [ 6] rocksdb::DBImpl::WriteWithCallback(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*)
+  [ 7] rocksdb::OptimisticTransaction::Commit()
+  [ 8] Java_org_rocksdb_Transaction_commit
+  [ 9] org.rocksdb.Transaction.commit
+  [10] org.rocksdb.Transaction.commit
+  [11] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commitInternal
+  [12] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commit
+  [13] io.zeebe.engine.processor.ProcessingStateMachine.lambda$updateState$9
+  [14] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$444.978940892.run
+  [15] io.zeebe.util.retry.ActorRetryMechanism.run
+  [16] io.zeebe.util.retry.RecoverableRetryStrategy.run
+  [17] io.zeebe.util.retry.RecoverableRetryStrategy$$Lambda$445.758568844.run
+  [18] io.zeebe.util.sched.ActorJob.invoke
+  [19] io.zeebe.util.sched.ActorJob.execute
+  [20] io.zeebe.util.sched.ActorTask.execute
+  [21] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [22] io.zeebe.util.sched.ActorThread.doWork
+  [23] io.zeebe.util.sched.ActorThread.run
+
+--- 999922 misses (1.09%), 1 sample
+  [ 0] ext4_bio_write_page?[ext4]_[k]
+  [ 1] mpage_submit_page?[ext4]_[k]
+  [ 2] mpage_process_page_bufs?[ext4]_[k]
+  [ 3] mpage_prepare_extent_to_map?[ext4]_[k]
+  [ 4] ext4_writepages?[ext4]_[k]
+  [ 5] do_writepages_[k]
+  [ 6] __filemap_fdatawrite_range_[k]
+  [ 7] file_write_and_wait_range_[k]
+  [ 8] ext4_sync_file?[ext4]_[k]
+  [ 9] do_fsync_[k]
+  [10] __x64_sys_fsync_[k]
+  [11] do_syscall_64_[k]
+  [12] entry_SYSCALL_64_after_hwframe_[k]
+  [13] fsync
+  [14] sun.nio.ch.FileDispatcherImpl.force0
+  [15] sun.nio.ch.FileDispatcherImpl.force
+  [16] sun.nio.ch.FileChannelImpl.force
+  [17] io.atomix.storage.journal.FileChannelJournalSegmentWriter.flush
+  [18] io.atomix.storage.journal.MappableJournalSegmentWriter.flush
+  [19] io.atomix.storage.journal.SegmentedJournalWriter$$Lambda$378.43919892.run
+  [20] io.prometheus.client.Histogram$Child.time
+  [21] io.atomix.storage.statistics.JournalMetrics.observeSegmentFlush
+  [22] io.atomix.storage.journal.SegmentedJournalWriter.flush
+  [23] io.atomix.storage.journal.SegmentedJournalWriter.commit
+  [24] io.atomix.storage.journal.DelegatingJournalWriter.commit
+  [25] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [26] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [27] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [28] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [29] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [30] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [31] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [32] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [33] org.mockito.Answers.answer
+  [34] org.mockito.internal.handler.MockHandlerImpl.handle
+  [35] org.mockito.internal.handler.NullResultGuardian.handle
+  [36] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [37] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [38] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [39] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [40] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [41] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [42] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [43] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [44] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [45] io.zeebe.util.sched.ActorJob.invoke
+  [46] io.zeebe.util.sched.ActorJob.execute
+  [47] io.zeebe.util.sched.ActorTask.execute
+  [48] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [49] io.zeebe.util.sched.ActorThread.doWork
+  [50] io.zeebe.util.sched.ActorThread.run
+
+--- 999899 misses (1.09%), 1 sample
+  [ 0] org.apache.logging.log4j.spi.CopyOnWriteSortedArrayThreadContextMap.createStringMap
+  [ 1] org.apache.logging.log4j.spi.CopyOnWriteSortedArrayThreadContextMap.remove
+  [ 2] org.apache.logging.log4j.ThreadContext.remove
+  [ 3] org.apache.logging.slf4j.Log4jMDCAdapter.remove
+  [ 4] org.slf4j.MDC.remove
+  [ 5] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [ 6] io.zeebe.util.sched.ActorThread.doWork
+  [ 7] io.zeebe.util.sched.ActorThread.run
+
+--- 999875 misses (1.09%), 1 sample
+  [ 0] io.zeebe.msgpack.value.EnumValue.<init>
+  [ 1] io.zeebe.msgpack.value.EnumValue.<init>
+  [ 2] io.zeebe.msgpack.property.EnumProperty.<init>
+  [ 3] io.zeebe.protocol.impl.record.value.workflowinstance.WorkflowInstanceRecord.<init>
+  [ 4] io.zeebe.engine.state.instance.IndexedRecord.<init>
+  [ 5] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [ 6] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 7] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 8] io.zeebe.engine.processor.workflow.BpmnStepContext.getFlowScopeInstance
+  [ 9] io.zeebe.engine.processor.workflow.handlers.element.ElementActivatedHandler.shouldHandleState
+  [10] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [11] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [12] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [13] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [14] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [16] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [19] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [20] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [22] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [23] io.zeebe.util.sched.ActorJob.invoke
+  [24] io.zeebe.util.sched.ActorJob.execute
+  [25] io.zeebe.util.sched.ActorTask.execute
+  [26] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [27] io.zeebe.util.sched.ActorThread.doWork
+  [28] io.zeebe.util.sched.ActorThread.run
+
+--- 999843 misses (1.09%), 1 sample
+  [ 0] rocksdb::DBImpl::GetImpl(rocksdb::ReadOptions const&, rocksdb::Slice const&, rocksdb::DBImpl::GetImplOptions)
+  [ 1] rocksdb::DBImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 2] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*, rocksdb::ReadCallback*)
+  [ 3] rocksdb::WriteBatchWithIndex::GetFromBatchAndDB(rocksdb::DB*, rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 4] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, rocksdb::PinnableSlice*)
+  [ 5] rocksdb::TransactionBaseImpl::Get(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)
+  [ 6] std::_Function_handler<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*), std::_Bind<rocksdb::Status (rocksdb::Transaction::*(rocksdb::Transaction*, std::_Placeholder<1>, rocksdb::ColumnFamilyHandle*, std::_Placeholder<2>, std::_Placeholder<3>))(rocksdb::ReadOptions const&, rocksdb::ColumnFamilyHandle*, rocksdb::Slice const&, std::string*)> >::_M_invoke(std::_Any_data const&, rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*&&)
+  [ 7] txn_get_helper(JNIEnv_*, std::function<rocksdb::Status (rocksdb::ReadOptions const&, rocksdb::Slice const&, std::string*)> const&, long const&, _jbyteArray* const&, int const&)
+  [ 8] Java_org_rocksdb_Transaction_get__JJ_3BIJ
+  [ 9] org.rocksdb.Transaction.get
+  [10] jdk.internal.reflect.GeneratedMethodAccessor23.invoke
+  [11] jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke
+  [12] java.lang.reflect.Method.invoke
+  [13] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.get
+  [14] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$getValue$2
+  [15] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$302.892005505.run
+  [16] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.lambda$ensureInOpenTransaction$1
+  [17] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb$$Lambda$303.694291753.run
+  [18] io.zeebe.db.impl.rocksdb.transaction.DefaultDbContext.runInTransaction
+  [19] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.ensureInOpenTransaction
+  [20] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.getValue
+  [21] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransactionDb.get
+  [22] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [23] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [24] io.zeebe.db.impl.rocksdb.transaction.TransactionalColumnFamily.get
+  [25] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [26] io.zeebe.engine.processor.workflow.BpmnStepContext.getElementInstance
+  [27] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.isStateSameAsElementState
+  [28] io.zeebe.engine.processor.workflow.handlers.element.ElementCompletingHandler.shouldHandleState
+  [29] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [30] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [31] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [32] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [33] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [34] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [35] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [36] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [37] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [38] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [39] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [40] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [41] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [42] io.zeebe.util.sched.ActorJob.invoke
+  [43] io.zeebe.util.sched.ActorJob.execute
+  [44] io.zeebe.util.sched.ActorTask.execute
+  [45] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [46] io.zeebe.util.sched.ActorThread.doWork
+  [47] io.zeebe.util.sched.ActorThread.run
+
+--- 999842 misses (1.09%), 1 sample
+  [ 0] com.esotericsoftware.kryo.io.ByteBufferInput.readLong
+  [ 1] com.esotericsoftware.kryo.serializers.UnsafeCacheFields$UnsafeLongField.read
+  [ 2] com.esotericsoftware.kryo.serializers.FieldSerializer.read
+  [ 3] com.esotericsoftware.kryo.Kryo.readClassAndObject
+  [ 4] io.atomix.utils.serializer.Namespace.deserialize
+  [ 5] io.atomix.storage.journal.FileChannelJournalSegmentReader.readNext
+  [ 6] io.atomix.storage.journal.FileChannelJournalSegmentReader.hasNext
+  [ 7] io.atomix.storage.journal.MappableJournalSegmentReader.hasNext
+  [ 8] io.atomix.storage.journal.SegmentedJournalReader.hasNextEntry
+  [ 9] io.atomix.storage.journal.SegmentedJournalReader.hasNext
+  [10] io.atomix.storage.journal.DelegatingJournalReader.hasNext
+  [11] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.findEntry
+  [12] io.zeebe.logstreams.storage.atomix.AtomixLogStorageReader.read
+  [13] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.lambda$readBlockIntoBuffer$1
+  [14] io.zeebe.logstreams.impl.log.LogStreamReaderImpl$$Lambda$383.1923772135.applyAsLong
+  [15] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.executeReadMethod
+  [16] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readBlockIntoBuffer
+  [17] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.readNextAddress
+  [18] io.zeebe.logstreams.impl.log.LogStreamReaderImpl.hasNext
+  [19] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor.onNewEventCommitted
+  [20] io.zeebe.engine.processor.workflow.perf.EngineRule$ProcessingExporterTransistor$$Lambda$352.200168363.run
+  [21] io.zeebe.util.sched.ActorJob.invoke
+  [22] io.zeebe.util.sched.ActorJob.execute
+  [23] io.zeebe.util.sched.ActorTask.execute
+  [24] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [25] io.zeebe.util.sched.ActorThread.doWork
+  [26] io.zeebe.util.sched.ActorThread.run
+
+--- 999826 misses (1.09%), 1 sample
+  [ 0] _raw_spin_lock_[k]
+  [ 1] do_get_write_access?[jbd2]_[k]
+  [ 2] jbd2_journal_get_write_access?[jbd2]_[k]
+  [ 3] __ext4_journal_get_write_access?[ext4]_[k]
+  [ 4] ext4_reserve_inode_write?[ext4]_[k]
+  [ 5] ext4_mark_inode_dirty?[ext4]_[k]
+  [ 6] ext4_dirty_inode?[ext4]_[k]
+  [ 7] __mark_inode_dirty_[k]
+  [ 8] generic_update_time_[k]
+  [ 9] file_update_time_[k]
+  [10] ext4_write_checks?[ext4]_[k]
+  [11] ext4_buffered_write_iter?[ext4]_[k]
+  [12] ext4_file_write_iter?[ext4]_[k]
+  [13] new_sync_write_[k]
+  [14] vfs_write_[k]
+  [15] ksys_write_[k]
+  [16] do_syscall_64_[k]
+  [17] entry_SYSCALL_64_after_hwframe_[k]
+  [18] __GI___libc_write
+  [19] rocksdb::WritableFileWriter::WriteBuffered(char const*, unsigned long)
+  [20] rocksdb::WritableFileWriter::Flush()
+  [21] rocksdb::log::Writer::AddRecord(rocksdb::Slice const&)
+  [22] rocksdb::DBImpl::WriteToWAL(rocksdb::WriteBatch const&, rocksdb::log::Writer*, unsigned long*, unsigned long*)
+  [23] rocksdb::DBImpl::WriteToWAL(rocksdb::WriteThread::WriteGroup const&, rocksdb::log::Writer*, unsigned long*, bool, bool, unsigned long)
+  [24] rocksdb::DBImpl::WriteImpl(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*, unsigned long*, unsigned long, bool, unsigned long*, unsigned long, rocksdb::PreReleaseCallback*)
+  [25] rocksdb::DBImpl::WriteWithCallback(rocksdb::WriteOptions const&, rocksdb::WriteBatch*, rocksdb::WriteCallback*)
+  [26] rocksdb::OptimisticTransaction::Commit()
+  [27] Java_org_rocksdb_Transaction_commit
+  [28] org.rocksdb.Transaction.commit
+  [29] org.rocksdb.Transaction.commit
+  [30] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commitInternal
+  [31] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.commit
+  [32] io.zeebe.engine.processor.ProcessingStateMachine.lambda$updateState$9
+  [33] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$444.978940892.run
+  [34] io.zeebe.util.retry.ActorRetryMechanism.run
+  [35] io.zeebe.util.retry.RecoverableRetryStrategy.run
+  [36] io.zeebe.util.retry.RecoverableRetryStrategy$$Lambda$445.758568844.run
+  [37] io.zeebe.util.sched.ActorJob.invoke
+  [38] io.zeebe.util.sched.ActorJob.execute
+  [39] io.zeebe.util.sched.ActorTask.execute
+  [40] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [41] io.zeebe.util.sched.ActorThread.doWork
+  [42] io.zeebe.util.sched.ActorThread.run
+
+--- 999807 misses (1.09%), 1 sample
+  [ 0] vtable stub
+  [ 1] io.zeebe.msgpack.value.EnumValue.<init>
+  [ 2] io.zeebe.msgpack.value.EnumValue.<init>
+  [ 3] io.zeebe.msgpack.property.EnumProperty.<init>
+  [ 4] io.zeebe.protocol.impl.record.value.workflowinstance.WorkflowInstanceRecord.<init>
+  [ 5] io.zeebe.engine.state.instance.IndexedRecord.<init>
+  [ 6] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [ 7] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 8] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 9] io.zeebe.engine.processor.workflow.BpmnStepContext.getFlowScopeInstance
+  [10] io.zeebe.engine.processor.workflow.handlers.seqflow.FlowOutElementCompletedHandler.takeSequenceFlow
+  [11] io.zeebe.engine.processor.workflow.handlers.seqflow.FlowOutElementCompletedHandler.handleState
+  [12] io.zeebe.engine.processor.workflow.handlers.AbstractHandler.handle
+  [13] io.zeebe.engine.processor.workflow.handlers.AbstractTerminalStateHandler.handle
+  [14] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [15] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [16] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [17] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [18] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [19] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [20] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [21] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [22] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [23] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [24] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [25] io.zeebe.engine.processor.StreamProcessor$$Lambda$344.813366567.run
+  [26] io.zeebe.util.sched.ActorJob.invoke
+  [27] io.zeebe.util.sched.ActorJob.execute
+  [28] io.zeebe.util.sched.ActorTask.execute
+  [29] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [30] io.zeebe.util.sched.ActorThread.doWork
+  [31] io.zeebe.util.sched.ActorThread.run
+
+--- 999797 misses (1.09%), 1 sample
+  [ 0] java.util.concurrent.ConcurrentSkipListMap.put
+  [ 1] io.zeebe.logstreams.storage.atomix.ZeebeIndexAdapter.index
+  [ 2] io.atomix.storage.journal.FileChannelJournalSegmentWriter.append
+  [ 3] io.atomix.storage.journal.MappableJournalSegmentWriter.append
+  [ 4] io.atomix.storage.journal.SegmentedJournalWriter.append
+  [ 5] io.atomix.storage.journal.DelegatingJournalWriter.append
+  [ 6] io.zeebe.engine.processor.workflow.perf.AtomixLogStorageRule.appendEntry
+  [ 7] io.zeebe.logstreams.storage.atomix.AtomixLogStorage.append
+  [ 8] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append$accessor$boZrKYZQ
+  [ 9] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583$auxiliary$HyxflwI3.call
+  [10] org.mockito.internal.invocation.RealMethod$FromCallable$1.call
+  [11] org.mockito.internal.invocation.RealMethod$FromBehavior.invoke
+  [12] org.mockito.internal.invocation.InterceptedInvocation.callRealMethod
+  [13] org.mockito.internal.stubbing.answers.CallsRealMethods.answer
+  [14] org.mockito.Answers.answer
+  [15] org.mockito.internal.handler.MockHandlerImpl.handle
+  [16] org.mockito.internal.handler.NullResultGuardian.handle
+  [17] org.mockito.internal.handler.InvocationNotifierHandler.handle
+  [18] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [19] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor.doIntercept
+  [20] org.mockito.internal.creation.bytebuddy.MockMethodInterceptor$DispatcherDefaultingToRealMethod.interceptSuperCallable
+  [21] io.zeebe.logstreams.storage.atomix.AtomixLogStorage$MockitoMock$2089949583.append
+  [22] io.zeebe.logstreams.impl.log.LogStorageAppender.appendToStorage
+  [23] io.zeebe.logstreams.impl.log.LogStorageAppender.appendBlock
+  [24] io.zeebe.logstreams.impl.log.LogStorageAppender.onWriteBufferAvailable
+  [25] io.zeebe.logstreams.impl.log.LogStorageAppender$$Lambda$196.178936941.run
+  [26] io.zeebe.util.sched.ActorJob.invoke
+  [27] io.zeebe.util.sched.ActorJob.execute
+  [28] io.zeebe.util.sched.ActorTask.execute
+  [29] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [30] io.zeebe.util.sched.ActorThread.doWork
+  [31] io.zeebe.util.sched.ActorThread.run
+
+--- 999746 misses (1.09%), 1 sample
+  [ 0] io.zeebe.msgpack.property.ObjectProperty.<init>
+  [ 1] io.zeebe.engine.state.instance.ElementInstance.<init>
+  [ 2] io.zeebe.engine.state.instance.ElementInstanceState.copyElementInstance
+  [ 3] io.zeebe.engine.state.instance.ElementInstanceState.getInstance
+  [ 4] io.zeebe.engine.state.instance.ElementInstanceState.removeInstance
+  [ 5] io.zeebe.engine.processor.workflow.handlers.AbstractTerminalStateHandler.handle
+  [ 6] io.zeebe.engine.processor.workflow.BpmnStepHandlers.handle
+  [ 7] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecordValue
+  [ 8] io.zeebe.engine.processor.workflow.BpmnStepProcessor.processRecord
+  [ 9] io.zeebe.engine.processor.TypedRecordProcessor.processRecord
+  [10] io.zeebe.engine.processor.ProcessingStateMachine.lambda$processInTransaction$2
+  [11] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$385.1135698843.run
+  [12] io.zeebe.db.impl.rocksdb.transaction.ZeebeTransaction.run
+  [13] io.zeebe.engine.processor.ProcessingStateMachine.processInTransaction
+  [14] io.zeebe.engine.processor.ProcessingStateMachine.processEvent
+  [15] io.zeebe.engine.processor.ProcessingStateMachine.tryToReadNextEvent
+  [16] io.zeebe.engine.processor.ProcessingStateMachine.readNextEvent
+  [17] io.zeebe.engine.processor.ProcessingStateMachine$$Lambda$449.113954639.run
+  [18] io.zeebe.util.sched.ActorJob.invoke
+  [19] io.zeebe.util.sched.ActorJob.execute
+  [20] io.zeebe.util.sched.ActorTask.execute
+  [21] io.zeebe.util.sched.ActorThread.executeCurrentTask
+  [22] io.zeebe.util.sched.ActorThread.doWork
+  [23] io.zeebe.util.sched.ActorThread.run
+
