@@ -1,0 +1,1 @@
+./profiler.sh -e cpu  -d 30 -i 1ms -o svg -f perf-tests/mmap/flame-mmap-ssd-entry64kb-segment128mb.svg
