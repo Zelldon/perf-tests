@@ -1,0 +1,28 @@
+---
+# Source: zeebe-cluster/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe"
+  labels:
+    app.kubernetes.io/name: zeebe-cluster
+    app.kubernetes.io/instance: zell-no-rep-tmpfs-entry256kb-128mb
+    app: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe"
+    app: zeebe
+  annotations:
+    null    
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  type: ClusterIP
+  ports:
+    - port: 9600
+      protocol: TCP
+      name: http  
+    - port: 26502
+      protocol: TCP
+      name: internal
+  selector:
+    app.kubernetes.io/name: zeebe-cluster
+    app.kubernetes.io/instance: zell-no-rep-tmpfs-entry256kb-128mb
+    app: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe"

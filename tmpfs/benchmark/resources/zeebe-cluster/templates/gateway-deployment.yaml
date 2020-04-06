@@ -1,0 +1,64 @@
+---
+# Source: zeebe-cluster/templates/gateway-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe-gateway"
+  labels:
+    app.kubernetes.io/name: zeebe-cluster
+    app.kubernetes.io/instance: zell-no-rep-tmpfs-entry256kb-128mb
+    app: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe-gateway"
+  annotations:   
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe-gateway"
+  template:
+    metadata:  
+      labels:
+        app.kubernetes.io/name: zeebe-cluster
+        app.kubernetes.io/instance: zell-no-rep-tmpfs-entry256kb-128mb
+        app: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe-gateway"
+    spec:
+      containers:
+        - name: zeebe-cluster-gateway
+          image: "gcr.io/zeebe-io/zeebe:zell-exec-metrics"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9600
+              name: http
+            - containerPort: 26500
+              name: gateway
+            - containerPort: 26502
+              name: internal
+          env:
+            - name: ZEEBE_STANDALONE_GATEWAY
+              value: "true"
+            - name: ZEEBE_GATEWAY_CLUSTER_CLUSTERNAME
+              value: zeebe-cluster  
+            - name: ZEEBE_GATEWAY_CLUSTER_MEMBER_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: ZEEBE_LOG_LEVEL
+              value: "warn"
+            - name: JAVA_TOOL_OPTIONS
+              value:
+                "-XX:+UseParallelGC \n-XX:MinHeapFreeRatio=5\n-XX:MaxHeapFreeRatio=10\n-XX:MaxRAMPercentage=25.0
+                \n-XX:GCTimeRatio=4 \n-XX:AdaptiveSizePolicyWeight=90\n-XX:+PrintFlagsFinal\n-Xmx4g\n-Xms4g\n-XX:+HeapDumpOnOutOfMemoryError\n-XX:HeapDumpPath=/usr/local/zeebe/data\n-XX:ErrorFile=/usr/local/zeebe/data/zeebe_error%p.log\n"
+            - name: ZEEBE_GATEWAY_CONTACT_POINT
+              value: "zell-no-rep-tmpfs-entry256kb-128mb-zeebe:26502"
+            - name: ZEEBE_GATEWAY_NETWORK_HOST
+              value: 0.0.0.0
+            - name: ZEEBE_GATEWAY_CLUSTER_HOST
+              value: 0.0.0.0
+            - name: ZEEBE_GATEWAY_MONITORING_HOST
+              value: 0.0.0.0   
+          securityContext:
+            null       
+          readinessProbe:
+            tcpSocket:
+              port: gateway
+            initialDelaySeconds: 20
+            periodSeconds: 5
